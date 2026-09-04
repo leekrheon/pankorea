@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026 PAN KOREA</title>
+<meta name="description" content="올 겨울, 새로운 판이 성수에 벌어집니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="2026 PAN KOREA">
+<meta property="og:description" content="올 겨울, 새로운 판이 성수에 벌어집니다.">
+<meta property="og:image" content="assets/preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="2026 PAN KOREA">
+<meta name="twitter:description" content="올 겨울, 새로운 판이 성수에 벌어집니다.">
+<meta name="twitter:image" content="assets/preview.png">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Zetta:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preload" as="video" href="assets/earth.mp4" type="video/mp4">
+<style>
+@font-face{font-family:"Lexend Zetta:Regular";font-style:normal;font-weight:400;src:url("https://static.figma.com/font/LexendZetta_wght__1") format("woff2")}
+@font-face{font-family:"Lexend Giga:SemiBold";font-style:normal;font-weight:600;src:url("https://static.figma.com/font/LexendGiga_wght__1") format("woff2")}
+@font-face{font-family:"Lexend Giga:Black";font-style:normal;font-weight:900;src:url("https://static.figma.com/font/LexendGiga_wght__1") format("woff2")}
+
+:root{
+  --navy:#091c3f; --navy-deep:#050f24; --neon:#f3ff48; --ink:#07142e;
+  --dim:rgba(243,255,72,.55); --line:rgba(243,255,72,.22);
+  --sans:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  --mono:"Lexend Zetta","Pretendard Variable",sans-serif;
+  --pad:clamp(20px,4vw,72px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-snap-type:y proximity}
+body{background:var(--navy);color:var(--neon);font-family:var(--sans);font-weight:500;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;letter-spacing:-.01em}
+img{display:block;max-width:none}
+
+body::after{content:"";position:fixed;inset:0;z-index:9000;pointer-events:none;
+  background-image:url("assets/noise.png");background-size:1048px 534px;opacity:.22;mix-blend-mode:overlay}
+
+/* progress */
+.progress{position:fixed;top:0;left:0;right:0;height:5px;z-index:9500;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.progress i{display:block;background:rgba(243,255,72,.18);position:relative;overflow:hidden}
+.progress i::after{content:"";position:absolute;inset:0;background:var(--neon);transform:scaleX(var(--p,0));transform-origin:left}
+
+/* hud */
+.hud{position:fixed;top:22px;left:var(--pad);right:var(--pad);z-index:9400;display:flex;justify-content:space-between;
+  align-items:baseline;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  mix-blend-mode:difference;color:#fff}
+.hud b{font-weight:700}
+.hud .mid{opacity:.7;font-family:var(--sans);letter-spacing:0;text-transform:none}
+@media(max-width:720px){.hud .mid{display:none}}
+
+/* hero */
+#hero{height:100svh;position:relative;overflow:hidden;background:#091c3f;scroll-snap-align:start;scroll-snap-stop:always}
+.scrollcue{position:absolute;left:var(--pad);bottom:20px;z-index:10;font-family:var(--mono);font-size:10px;
+  letter-spacing:.14em;color:var(--neon);opacity:.75;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+@keyframes k-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+
+/* sections */
+section{position:relative}
+.pad{padding:clamp(90px,12vh,170px) var(--pad);min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  scroll-snap-align:start;scroll-snap-stop:always}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--dim)}
+h2{font-size:clamp(30px,4.6vw,68px);line-height:1.18;font-weight:700;letter-spacing:-.035em}
+h3{font-size:clamp(21px,2.3vw,34px);line-height:1.3;font-weight:700;letter-spacing:-.03em}
+p.body{font-size:clamp(15px,1.15vw,19px);line-height:1.85;font-weight:400;color:rgba(243,255,72,.86);max-width:64ch}
+.mark{background:var(--neon);color:var(--navy);padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.w900{font-weight:900}.w800{font-weight:800}.w700{font-weight:700}.w600{font-weight:600}.w500{font-weight:500}.w400{font-weight:400}
+
+/* rise / fade helpers (React Rise/Fade 재현) */
+.rise-wrap{display:block;overflow:hidden}
+.rise-in{display:block;transform:translateY(105%);transition:transform .95s cubic-bezier(.16,1,.3,1) var(--rd,0ms)}
+.on .rise-in{transform:translateY(0)}
+.fade{opacity:0;transform:translateY(18px);transition:opacity .8s ease var(--fd,0ms),transform .8s cubic-bezier(.16,1,.3,1) var(--fd,0ms)}
+.on .fade{opacity:1;transform:none}
+
+/* intro / why-stack scaled figma frames */
+.scaled{width:100%;height:100%;overflow:hidden;position:relative}
+.scaled-inner{width:1920px;height:1080px;position:absolute;top:50%;left:50%;transform-origin:center center;will-change:transform}
+.figpanel{position:relative;width:1920px;height:1080px;overflow:hidden;background:#090f0b}
+.fn{position:absolute;inset:0;mix-blend-mode:overlay;pointer-events:none;opacity:.25;
+  background-image:url("assets/noise.png");background-size:1048.85px 534.83px;background-position:top left}
+
+/* Frame reveal helper classes (data-attr 로 delay 부여) */
+.fx-o{opacity:0;transition:opacity var(--dur,.9s) ease var(--delay,0s)}
+.panel.active .fx-o{opacity:1}
+.fx-up{opacity:0;transform:translateY(24px);transition:opacity var(--dur,.9s) ease var(--delay,0s),transform var(--dur,.9s) cubic-bezier(.16,1,.3,1) var(--delay,0s)}
+.panel.active .fx-up{opacity:1;transform:translateY(0)}
+.fx-swipe-l{transform:scaleX(0);transform-origin:left center;transition:transform .8s cubic-bezier(.16,1,.3,1) var(--delay,0s)}
+.panel.active .fx-swipe-l{transform:scaleX(1)}
+.fx-swipe-r{transform:scaleX(0);transform-origin:right center;transition:transform .85s cubic-bezier(.16,1,.3,1) var(--delay,60ms)}
+.panel.active .fx-swipe-r{transform:scaleX(1)}
+.fx-scale107{transform:scale(1.07);transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
+.panel.active .fx-scale107{transform:scale(1)}
+.fx-bar{width:0;transition:width 1s cubic-bezier(.16,1,.3,1) var(--delay,0s)}
+.panel.active .fx-bar{width:617.887px}
+.fx-age{opacity:0;transform:translateY(40px);transition:opacity .8s ease var(--delay,.3s),transform .9s cubic-bezier(.16,1,.3,1) var(--delay,.3s)}
+.panel.active .fx-age{opacity:.7;transform:translateY(0)}
+.kshape{animation:none}
+.panel.active .kshape{animation:k-float 5s ease-in-out infinite}
+
+/* WHY PAN 세대 숫자: 오른쪽에서 들어와 왼쪽으로 흐르며 순서대로 한 번씩 밝아짐 */
+.genmarquee{display:flex;align-items:center;gap:70px;width:max-content;
+  animation:genscroll 22s linear infinite}
+.gennum{font-family:'Pretendard Variable',sans-serif;font-weight:900;font-size:171.857px;
+  letter-spacing:-5.1557px;line-height:1;color:rgba(243,255,72,.16);white-space:nowrap;
+  animation:gennglow 22s ease-in-out infinite;animation-delay:calc(var(--i) * (22s/9))}
+@keyframes genscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes gennglow{
+  0%,89%,100%{color:rgba(243,255,72,.16);text-shadow:none}
+  4%{color:#f3ff48;text-shadow:0 0 46px rgba(243,255,72,.65)}
+}
+@media(prefers-reduced-motion:reduce){
+  .genmarquee{animation:none}
+  .gennum{animation:none;color:rgba(243,255,72,.16)}
+}
+
+/* Intro (Frame-1) */
+.i-headline{position:absolute;left:976px;top:240px;transform:translate(-50%,-50%);
+  font-family:'Pretendard Variable',sans-serif;font-weight:900;font-size:95px;letter-spacing:-2.85px;
+  white-space:nowrap;line-height:1.2;color:#fff}
+.i-date{position:absolute;left:976.84px;top:374px;transform:translate(-50%,-50%);white-space:nowrap;
+  font-family:'Lexend Giga:SemiBold',sans-serif;font-weight:600;font-size:131.641px;letter-spacing:-3.9492px;
+  line-height:1.2;text-align:center;color:#fff}
+.i-note{position:absolute;left:958.5px;top:111px;transform:translate(-50%,-50%);white-space:nowrap;
+  font-family:'Pretendard Variable',sans-serif;font-weight:600;font-size:20px;letter-spacing:-.6px;color:#d3d3d3}
+.i-bottom{position:absolute;left:50%;top:948px;transform:translate(-50%,-50%);text-align:center;white-space:nowrap;
+  font-family:'Pretendard Variable',sans-serif;font-weight:600;font-size:27px;letter-spacing:-.81px;color:#fff;line-height:1.5}
+.i-bottom b{display:block;font-weight:700;color:var(--neon)}
+
+/* chapter */
+.chapter{height:100svh;display:grid;place-items:center;position:relative}
+.chapter .inner{position:relative;z-index:1;text-align:center}
+.chapter .num{font-family:var(--mono);font-weight:700;font-size:clamp(28px,4vw,58px);letter-spacing:-.04em}
+.chapter .word{font-family:var(--mono);font-weight:900;font-size:clamp(64px,15vw,215px);line-height:.9;letter-spacing:-.06em;margin:.12em 0}
+.chapter .sub{font-size:clamp(16px,1.7vw,27px);font-weight:600}
+
+/* WHY stack */
+.stack-wrapper{position:relative;height:400vh}
+.stack-sticky{position:sticky;top:0;height:100svh;overflow:hidden}
+.panel{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+  border-top:1px solid var(--line);overflow:hidden;opacity:0;transform:translateY(28px);
+  transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);pointer-events:none}
+.panel.active{opacity:1;transform:none;pointer-events:auto}
+.panel.past{transform:translateY(-28px)}
+.panel-dots{position:absolute;right:var(--pad);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:10}
+.panel-dot{width:6px;height:6px;border-radius:50%;background:rgba(243,255,72,.25);transition:background .4s ease,transform .4s ease}
+.panel-dot.active{background:var(--neon);transform:scale(1.4)}
+
+/* ages marquee (구 버전 자리 표시가 아니라 zip 원본엔 없음 - 생략) */
+
+/* hpin: zones */
+.hpin{height:360vh;position:relative}
+.hpin .vp{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center}
+.hpin .track{display:flex;gap:clamp(20px,3vw,48px);padding:0 var(--pad);will-change:transform}
+.zone{flex:0 0 min(84vw,660px);border:1px solid var(--line);padding:clamp(24px,2.6vw,44px);
+  height:min(70vh,620px);display:flex;flex-direction:column;position:relative;overflow:hidden;background:var(--navy)}
+.zone .z-n{font-family:var(--mono);font-weight:900;font-size:clamp(80px,14vw,190px);line-height:.82;
+  color:rgba(243,255,72,.1);position:absolute;right:.05em;top:-.06em;pointer-events:none}
+.zone .z-space{font-family:var(--mono);font-size:11px;letter-spacing:.1em;background:var(--neon);color:var(--navy);
+  padding:.45em .7em;align-self:flex-start}
+.zone h4{font-family:var(--mono);font-weight:900;font-size:clamp(26px,3.2vw,52px);letter-spacing:-.045em;margin:.5em 0 .1em;line-height:1}
+.zone .place{font-size:clamp(16px,1.5vw,22px);font-weight:700;margin-bottom:.7em}
+.zone ul{list-style:none;display:flex;flex-direction:column;gap:1.05em;margin-top:auto;overflow:auto}
+.zone li{border-top:1px solid var(--line);padding-top:.85em}
+.zone li b{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.04em;margin-bottom:.5em}
+.zone li span{font-size:14.5px;line-height:1.75;font-weight:400;color:rgba(243,255,72,.8)}
+
+/* Seongsu intro */
+.seongsu-intro{position:relative;overflow:hidden;background:#090f0b;justify-content:flex-start!important;
+  padding:clamp(80px,13vh,140px) var(--pad) 0!important}
+.seongsu-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;pointer-events:none}
+.seongsu-fade{position:absolute;left:0;right:0;top:0;height:58%;
+  background:linear-gradient(to top, rgba(9,15,11,0) 0%, rgba(9,15,11,.55) 100%);pointer-events:none}
+.seongsu-top{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-start;
+  gap:clamp(20px,4vw,60px);flex-wrap:wrap}
+.seongsu-head h3{font-size:clamp(20px,2.3vw,34px);font-weight:600;letter-spacing:-.03em;color:#fff}
+.seongsu-head h2{font-size:clamp(28px,3.9vw,54px);font-weight:800;letter-spacing:-.035em;line-height:1.25}
+.seongsu-body{max-width:46ch;text-align:right;margin-left:auto}
+.seongsu-body .body{color:#fff;text-align:right;max-width:none}
+.seongsu-word{position:relative;z-index:2;margin-top:auto;width:100%;height:auto;
+  mix-blend-mode:difference;pointer-events:none}
+@media(max-width:760px){
+  .seongsu-top{flex-direction:column}
+  .seongsu-body{text-align:left;margin-left:0}
+  .seongsu-body .body{text-align:left}
+}
+
+/* people/stats */
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3vw,56px);margin-top:clamp(30px,5vh,60px)}
+@media(max-width:860px){.people{grid-template-columns:1fr}}
+.people-compact{margin-top:clamp(14px,2.2vh,26px)}
+.people-compact .person{padding-top:.7em}
+.people-compact .person .nm{font-size:clamp(17px,1.5vw,22px)}
+.people-compact .person .role{margin:.35em 0 0}
+.person{border-top:1px solid var(--neon);padding-top:1.1em}
+.person .nm{font-size:clamp(22px,2vw,30px);font-weight:700;letter-spacing:-.03em}
+.person .role{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--dim);margin:.5em 0 1em}
+.person p{font-size:14px;line-height:1.65;font-weight:400;color:rgba(243,255,72,.82)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(18px,2.5vw,40px);margin-top:clamp(28px,4.5vh,54px)}
+@media(max-width:860px){.stats{grid-template-columns:1fr 1fr}}
+.stat{border-bottom:1px solid var(--line);padding-bottom:.7em}
+.stat .n{font-family:var(--mono);font-weight:900;font-size:clamp(28px,3.4vw,54px);letter-spacing:-.05em;line-height:1}
+.stat .l{font-size:12px;color:var(--dim);margin-top:.9em;line-height:1.5}
+
+/* timeline (roadmap zigzag) */
+.tl-wrap{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2.4vw,34px);
+  margin-top:clamp(46px,7vh,86px)}
+.tl-line{position:absolute;top:50%;left:0;right:0;height:1px;background:rgba(238,243,239,.15);z-index:0}
+.tl-item{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;height:280px;
+  opacity:0;transform:translateY(16px);transition:opacity .65s ease var(--td,0s),transform .65s cubic-bezier(.16,1,.3,1) var(--td,0s)}
+.tl-wrap.in .tl-item{opacity:1;transform:none}
+.tl-item:nth-child(2){--td:0s}.tl-item:nth-child(3){--td:.12s}.tl-item:nth-child(4){--td:.24s}.tl-item:nth-child(5){--td:.36s}
+.tl-item.up{justify-content:flex-end}
+.tl-item.down{justify-content:flex-start}
+.tl-dot{width:11px;height:11px;border-radius:50%;background:var(--neon);flex:none}
+.tl-stick{width:1px;height:clamp(36px,6vh,64px);background:rgba(238,243,239,.28);flex:none}
+.tl-card{width:100%;background:rgba(238,243,239,.04);padding:clamp(16px,1.8vw,28px)}
+.tl-y{font-family:var(--sans);font-weight:600;font-size:clamp(13px,1.05vw,17px);color:rgba(238,243,239,.72);
+  letter-spacing:-.02em;margin-bottom:.5em}
+.tl-card p{font-size:clamp(12px,.92vw,15px);line-height:1.5;color:#eef3ef;font-weight:500}
+.tl-word{margin-top:clamp(20px,5vh,60px);font-family:var(--mono);font-weight:800;color:var(--neon);
+  font-size:clamp(46px,10.5vw,170px);letter-spacing:-.05em;line-height:.9;text-align:center;opacity:.92}
+@media(max-width:860px){
+  .tl-wrap{grid-template-columns:1fr;gap:22px}
+  .tl-line,.tl-stick,.tl-dot{display:none}
+  .tl-item,.tl-item.up,.tl-item.down{height:auto;justify-content:flex-start}
+}
+
+/* partners */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,44px);margin-top:clamp(28px,5vh,56px)}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
+.box{border:1px solid var(--line);padding:clamp(24px,2.6vw,42px)}
+.box.solid{background:var(--neon);color:var(--navy);border-color:var(--neon)}
+.box.solid .lab{color:rgba(9,28,63,.6)}
+.box.solid li{border-color:rgba(9,28,63,.2)}
+.box .lab{font-family:var(--mono);font-size:11px;letter-spacing:.09em;color:var(--dim)}
+.box h4{font-size:clamp(22px,2.2vw,32px);font-weight:700;letter-spacing:-.03em;margin:.35em 0 .8em}
+.box ul{list-style:none;display:flex;flex-direction:column}
+.box li{border-top:1px solid var(--line);padding:.85em 0;font-size:15px;line-height:1.7;font-weight:400}
+.two-tiers{margin-top:clamp(14px,2.4vh,26px)}
+.box-sm{padding:clamp(16px,1.7vw,26px)}
+.box-sm h4{font-size:clamp(17px,1.5vw,22px);margin:.3em 0 .45em}
+.box-sm .body{font-size:13px;line-height:1.55}
+
+/* island */
+.island{min-height:100svh;display:flex;flex-direction:row;justify-content:flex-start;align-items:center;
+  background:linear-gradient(180deg,rgba(5,15,36,.2),rgba(5,15,36,.92)),url("assets/hero-globe.png") center/cover no-repeat}
+.island-feats{list-style:none;display:flex;gap:clamp(18px,3vw,44px);flex-wrap:wrap;margin-top:1.4em}
+.island-feats li{border-top:1px solid var(--line);padding-top:.75em;min-width:220px}
+.island-feats li b{display:block;font-size:16px;font-weight:700;letter-spacing:-.02em;margin-bottom:.4em;color:#fff}
+.island-feats li span{font-size:13.5px;line-height:1.55;color:rgba(243,255,72,.75);font-weight:400}
+
+/* outro */
+.outro{height:100svh;position:relative;overflow:hidden;background:#000;display:flex;flex-direction:column;justify-content:flex-end;
+  scroll-snap-align:start;scroll-snap-stop:always}
+.outro .stars{position:absolute;top:0;left:0;right:0;height:56%;background:url("assets/hero-stars.png") center/cover no-repeat}
+.outro .cut{position:absolute;top:0;left:0;width:100%;height:56%}
+.outro .cut svg{width:100%;height:100%}
+.outro .globe{position:absolute;left:50%;bottom:0;width:120%;height:52%;transform:translateX(-50%);
+  background:url("assets/hero-globe.png") center top/cover no-repeat}
+.outro .foot{position:relative;z-index:2;padding:var(--pad);display:flex;justify-content:space-between;align-items:flex-end;
+  gap:24px;flex-wrap:wrap;background:linear-gradient(180deg,transparent,rgba(5,15,36,.9) 45%)}
+.outro .foot a{color:var(--neon);text-decoration:none;border-bottom:1px solid var(--line)}
+.outro .foot a:hover{border-color:var(--neon)}
+.outro .who{text-align:right;font-size:clamp(15px,1.4vw,20px);line-height:1.8}
+.outro .who .nm{font-size:clamp(26px,3vw,44px);font-weight:700;letter-spacing:-.04em;line-height:1.1;margin-bottom:.3em}
+.outro .by{font-family:var(--mono);font-size:11px;letter-spacing:.08em}
+
+:focus-visible{outline:2px solid var(--neon);outline-offset:3px}
+
+/* ================= 하단 내비게이션 (원래 버전 유지) ================= */
+#nav{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9600;display:flex;
+  background:rgba(2,8,20,.88);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.14);
+  border-radius:3px;overflow:hidden;max-width:calc(100vw - 20px)}
+#nav a{display:block;padding:11px 16px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  color:#9fb0c6;white-space:nowrap;transition:background .25s,color .25s;text-decoration:none}
+#nav a.on{background:#fff;color:var(--navy)}
+#nav a.cta{background:var(--neon);color:var(--navy);font-weight:700}
+#nav a:hover{color:#fff}
+#nav a.on:hover,#nav a.cta:hover{color:var(--navy)}
+@media(max-width:640px){#nav{overflow-x:auto}#nav a{padding:10px 12px;font-size:10px}}
+
+@media(prefers-reduced-motion:reduce){
+  .scrollcue{animation:none}
+  .rise-in,.fade,.fx-o,.fx-up,.fx-swipe-l,.fx-swipe-r,.fx-scale107,.fx-bar,.fx-age{transition:none!important}
+  .on .rise-in{transform:none}.on .fade{opacity:1;transform:none}
+  .panel.active .fx-o,.panel.active .fx-up{opacity:1;transform:none}
+  .panel.active .fx-swipe-l,.panel.active .fx-swipe-r,.panel.active .fx-scale107{transform:none}
+  .kshape{animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"><i data-bar="0"></i><i data-bar="1"></i><i data-bar="2"></i><i data-bar="3"></i></div>
+
+<header class="hud">
+  <b>판 PAN</b>
+  <span class="mid">거리에서 만나는 미래, 국내 최초 스트리트 AI 페스티벌</span>
+  <span>Pacific AI Nexus</span>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="hero">
+  <div style="position:absolute;inset:0;background-image:url('assets/hero-stars.png');background-size:cover;background-position:center top"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;top:calc(424/1920*100vw);background:#f3ff48"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;top:calc(437/1920*100vw);overflow:hidden">
+    <div id="heroGlobe" style="width:100%;height:100%;transform-origin:50% 15%;will-change:transform">
+      <img src="assets/hero-globe.png" alt="" style="position:absolute;left:0;top:-.02%;width:100%;height:168.31%;object-fit:cover;pointer-events:none">
+    </div>
+  </div>
+  <div id="heroPan" style="position:absolute;top:0;left:0;right:0;height:calc(452/1920*100vw);opacity:0;transform:translateY(32px);
+      transition:opacity 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1);will-change:opacity,transform">
+    <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 1920 452" fill="none">
+      <path d="M1920 452H0V0H1920V452ZM309.367 32.3848C218.252 32.3855 122.075 31.3029 31.6055 32.5908L31.3818 122.611C69.8734 123.596 112.806 122.89 151.639 122.928L381.676 123.054L457.622 122.958C467.641 122.946 478.827 123.116 488.723 122.984C564.091 121.977 596.406 179.608 542.608 210.343C517.818 224.506 487.235 221.841 455.784 221.856L157.828 221.839C116.769 221.834 72.3055 221.326 31.5195 222.225C31.5554 283.736 32.6426 346.683 31.3916 408.061L194.534 408.123C194.977 375.985 195.09 343.845 194.875 311.705C254.58 313.323 328.813 312.093 389.052 312.039L470.654 311.991C502.481 311.964 528.173 312.464 560.175 308.417C573.452 306.738 585.971 304.44 597.731 301.598L544.257 358.702C535.225 368.336 504.051 399.594 498.492 408.6C556.719 409.295 615.414 408.389 673.631 408.777C730.375 347.968 785.544 282.472 840.23 220.72C858.707 200.003 876.926 179.198 894.881 158.307C901.47 150.714 916.168 135.486 919.642 128.042C929.916 138.714 939.519 149.631 948.426 160.768C998.597 218.198 1049.34 275.436 1100.64 332.479C1121.74 356.193 1142.64 380.275 1163.83 403.98C1165.1 405.401 1167.81 408.241 1170.06 408.391C1173.54 408.622 1178.91 408.751 1185.06 408.822C1185.06 408.847 1185.06 408.872 1185.06 408.896L1195.32 408.891C1198.93 408.899 1202.6 408.895 1206.13 408.885L1340.19 408.816C1341.83 328.286 1340.79 245.175 1340.3 164.494C1366.16 183.073 1395.87 201.499 1423.07 219.479L1549.35 304.186L1639.06 364.641L1668.27 384.437C1709.64 412.817 1717.56 408.968 1775.9 408.896L1866.68 408.796C1870.69 408.775 1870.98 409.232 1873.12 407.941C1874.72 397.973 1873.55 378.736 1873.54 367.938V32.9932C1823.22 33.1553 1768.11 32.406 1718.22 33.2969L1718.31 200.91C1718.36 224.397 1716.95 253.075 1718.48 276.065L1718.11 275.892C1712.31 273.142 1707.59 269.612 1702.69 266.279C1687.91 256.23 1672.75 246.399 1658.01 236.328L1424.11 74.0732C1400.91 57.7095 1372.02 32.8136 1333.85 33.1592C1287.16 33.5819 1236.92 31.9633 1190.51 33.3877L1186.27 33.7393C1183.93 35.877 1185.11 92.9863 1185.1 100.206L1185.06 232.793L1073.11 110.72C1050.22 85.5952 1025.66 57.692 1002.15 33.0693C951.433 32.9299 897.782 32.4605 847.29 33.1709C840.704 38.1164 829.857 50.3353 824.222 56.3516C810.185 71.326 796.314 86.3596 782.609 101.452L732.639 155.831C723.639 100.202 665.848 48.1005 558.691 35.5947C519.57 31.0294 485.943 32.3374 445.842 32.3477L309.367 32.3848Z" fill="#F3FF48"/>
+    </svg>
+  </div>
+  <div style="position:absolute;left:0;right:0;top:calc(455/1920*100vw);display:flex;align-items:center;justify-content:space-between;
+      padding:0 calc(61/1920*100vw);gap:2vw">
+    <p style="margin:0;white-space:nowrap;font-family:'Pretendard Variable:SemiBold',sans-serif;font-weight:600;
+       font-size:clamp(11px,1.5625vw,30px);color:#f3ff48;letter-spacing:.05em;text-transform:uppercase;line-height:1.3">거리에서 만나는 미래, 국내 최초 스트리트 AI 페스티벌</p>
+    <p style="margin:0;white-space:nowrap;font-family:'Pretendard Variable:Bold',sans-serif;font-weight:700;
+       font-size:clamp(11px,1.5625vw,30px);color:#f3ff48;letter-spacing:.05em;text-transform:uppercase;line-height:1.3">판 pAN</p>
+    <p style="margin:0;white-space:nowrap;font-family:'Lexend Zetta:Regular',sans-serif;font-weight:400;
+       font-size:clamp(11px,1.5625vw,30px);color:#f3ff48;letter-spacing:-.05em;text-transform:uppercase;line-height:1.3">Pacific AI Nexus</p>
+  </div>
+  <div style="position:absolute;inset:0;mix-blend-mode:overlay;pointer-events:none">
+    <div style="position:absolute;inset:0;opacity:.25;background-image:url('assets/noise.png');background-size:1048.85px 534.83px"></div>
+  </div>
+  <div class="scrollcue">SCROLL</div>
+</section>
+
+<!-- ============ INTRO ============ -->
+<section class="intro-screen" style="height:100svh;position:relative;overflow:hidden;scroll-snap-align:start;scroll-snap-stop:always">
+  <div class="scaled" data-scaled>
+    <div class="scaled-inner">
+      <div class="figpanel">
+        <video autoplay muted loop playsinline preload="auto" poster="assets/intro-bg.png"
+               style="position:absolute;left:-122px;top:-201px;width:2162px;height:1215px;object-fit:cover;pointer-events:none">
+          <source src="assets/earth.mp4" type="video/mp4">
+        </video>
+        <div style="position:absolute;left:50%;top:445px;transform:translateX(-50%);width:1956px;height:656px;
+             background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,.7) 75.962%)"></div>
+        <div style="position:absolute;left:calc(50% + 1px);top:0;transform:translateX(-50%);width:1956px;height:339px;
+             background:linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,.7) 75.962%)"></div>
+        <div class="i-note">*세부 일자는 추후 변경될 수 있습니다.</div>
+        <div class="i-headline">세계의 미래가, 한국으로 향합니다</div>
+        <div class="i-date">2026. 11. 23-27.</div>
+        <div class="i-bottom">
+          흩어져 있던 미래를 성수의 한 거리에 모으는 국내 최초의 스트리트 AI 페스티벌을 열겠습니다.
+          <b>궁극적으로, 아시아·태평양 전역의 창업자와 크리에이터, 빅테크가 매년 모이는 독립 IP로 키우겠습니다.</b>
+        </div>
+        <div class="fn"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY STACK (4 panels, scroll crossfade) ============ -->
+<div class="stack-wrapper" id="stackWrapper">
+  <div class="stack-sticky">
+    <div class="panel-dots" aria-hidden="true">
+      <div class="panel-dot active" data-dot="0"></div>
+      <div class="panel-dot" data-dot="1"></div>
+      <div class="panel-dot" data-dot="2"></div>
+      <div class="panel-dot" data-dot="3"></div>
+    </div>
+
+    <!-- panel 0: WHY STREET (2049) -->
+    <div class="panel active" data-panel="0">
+      <div class="scaled"><div class="scaled-inner"><div class="figpanel" style="background:#090f0b">
+        <div class="fx-scale107" style="position:absolute;left:-1px;top:0;width:1921px;height:1081.14px">
+          <img src="assets/why-street-bg.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+        </div>
+        <div style="position:absolute;left:50%;top:445px;transform:translateX(-50%);width:1956px;height:656px;
+             background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,.7) 56.25%)"></div>
+        <div style="position:absolute;left:calc(50% + 18px);top:0;transform:translateX(-50%);width:1956px;height:339px;
+             background:linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,.7) 75.962%)"></div>
+        <div class="fx-swipe-r" style="position:absolute;left:977px;top:201px;width:866px;height:95px;background:#f3ff48"></div>
+        <div class="fx-up" style="--delay:220ms;--dur:1s;position:absolute;left:calc(50% + 877px);top:197px;transform:translate(-100%,-50%);
+             text-align:right;white-space:nowrap;font-family:'Pretendard Variable',sans-serif;font-weight:900;color:#f3ff48;
+             font-size:83.04px;letter-spacing:-1.6608px;line-height:1.25">
+          <p style="margin:0">2049년의 미래가</p>
+          <p style="margin:0;color:#01244b;letter-spacing:-.32px">단 하나의 거리에 모입니다</p>
+        </div>
+        <div class="fx-up" style="--delay:460ms;position:absolute;left:81px;top:946px;transform:translateY(-50%);white-space:nowrap;
+             font-family:'Pretendard Variable',sans-serif;font-weight:500;color:#fff;font-size:29px;letter-spacing:-.87px;line-height:1.5">
+          <p style="margin:0">AI가 작곡한 음악이 거리에 흐르고, 스크린에는 AI가 만든 영화가 상영됩니다. </p>
+          <p style="margin:0">빌더들은 자기 제품을 자유롭게 시연하고, 미래도시의 모습을 팝업으로 먼저 만납니다.</p>
+          <p style="margin:0;font-weight:800;color:#f3ff48">AI의 다음 대중화는 컨퍼런스홀이 아니라 거리에서 시작됩니다.</p>
+        </div>
+        <div class="fn"></div>
+      </div></div></div>
+    </div>
+
+    <!-- panel 1: WHY KOREA -->
+    <div class="panel" data-panel="1">
+      <div class="scaled"><div class="scaled-inner"><div class="figpanel" style="background:#090f0b">
+        <div class="fx-o" style="--dur:1.2s;position:absolute;left:-68px;top:-41px;width:2046px;height:1150px">
+          <img src="assets/why-korea-tex.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6;pointer-events:none">
+        </div>
+        <div class="fx-o" style="--dur:1.2s;--delay:80ms;position:absolute;left:-144px;top:-139px;width:2221px;height:1240px">
+          <img src="assets/why-korea-bg.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+        </div>
+        <div style="position:absolute;left:calc(50% - 433.5px);top:-5px;width:1053px;height:1091px;
+             background:linear-gradient(to left, rgba(0,0,0,0) 0%, rgba(0,0,0,.7) 75.962%)"></div>
+        <div class="fx-swipe-l" style="--delay:150ms;position:absolute;left:71px;top:99.18px;width:428.744px;height:54.3px;background:#f3ff48"></div>
+        <div class="fx-up" style="--delay:260ms;--dur:1s;position:absolute;left:calc(50% - 889px);top:89px;white-space:nowrap;
+             font-family:'Pretendard Variable',sans-serif;font-weight:900;color:#fff;letter-spacing:-2.3756px;line-height:1.4">
+          <p style="margin:0;font-family:'Lexend Zetta:Regular',sans-serif;font-weight:400;color:#0d0d0d;font-size:49.775px">WHY KOREA</p>
+          <p style="margin:0;font-size:72.4px">이제 AI도 강력한 문화입니다</p>
+        </div>
+        <div class="fx-up" style="--delay:420ms;position:absolute;left:71px;top:509px;white-space:nowrap;
+             font-family:'Pretendard Variable',sans-serif;font-weight:500;color:#fff;letter-spacing:-.81px;font-size:27px;line-height:1.5">
+          <p style="margin:0">미국이 열면 오지 않는 나라가 있고,<br>중국이 열면 오지 않는 나라가 있습니다.</p>
+          <p style="margin:0;font-weight:700;color:#f3ff48">하지만 서울은 다릅니다.</p>
+          <p style="margin:0">&nbsp;</p>
+          <p style="margin:0">미국·중국·일본·싱가포르·베트남의 기술과 인재가 </p>
+          <p style="margin:0">한 도시, 한 거리에서 만날 수 있습니다.</p>
+          <p style="margin:0">&nbsp;</p>
+          <p style="margin:0">한국은 이미 음악·영화·패션으로 문화를 세계에 연결해온 나라입니다.</p>
+          <p style="margin:0;font-weight:700;color:#f3ff48">기술과 문화, 크리에이터와 관객이 같은 거리에서 만나는 연결의 장.</p>
+          <p style="margin:0;font-weight:700;color:#f3ff48">한국이 가장 잘 할 수 있는 일입니다. </p>
+        </div>
+        <div class="fx-o kshape" style="--delay:300ms;--dur:1.4s;position:absolute;left:899.62px;top:-36.18px;width:1275.556px;height:1384.61px;
+             display:flex;align-items:center;justify-content:center;mix-blend-mode:difference">
+          <div style="transform:rotate(-5.48deg);width:1158.567px;height:1279.757px">
+            <svg width="1158.57" height="1279.76" viewBox="0 0 1158.57 1279.76" fill="none">
+              <path d="M698.049 607.885L1158.57 1279.76H711.622L375.201 741.677V1279.76H0V644.689C88.5991 489.056 216.58 353.611 375.201 247.04V480.878L601.044 124.132C749.325 59.9676 915.044 17.0713 1093.61 0H1101.37L698.049 607.885Z" fill="url(#kgrad)" fill-opacity="0.9"/>
+              <defs><linearGradient id="kgrad" x1="-129.232" x2="1091.96" y1="811.706" y2="811.706" gradientUnits="userSpaceOnUse">
+                <stop offset="0.663462" stop-color="#F3FF48"/><stop offset="1" stop-color="#999999"/>
+              </linearGradient></defs>
+            </svg>
+          </div>
+        </div>
+        <div class="fn"></div>
+      </div></div></div>
+    </div>
+
+    <!-- panel 2: WHY 2026 -->
+    <div class="panel" data-panel="2">
+      <div class="scaled"><div class="scaled-inner"><div class="figpanel" style="background:#090f0b">
+        <div class="fx-o" style="--dur:1.2s;position:absolute;left:-68px;top:-41px;width:2046px;height:1150px">
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt=""
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6;pointer-events:none">
+        </div>
+        <div style="position:absolute;left:calc(50% + 1px);top:0;transform:translateX(-50%);width:1956px;height:656px;
+             background:linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,.5) 75.962%)"></div>
+        <div class="fx-up" style="--delay:400ms;position:absolute;left:61px;top:93px;white-space:nowrap;
+             font-family:'Pretendard Variable',sans-serif;font-weight:500;color:#fff;letter-spacing:-.81px;font-size:27px;line-height:1.5">
+          <p style="margin:0">AI를 둘러싼 변화는 이미 시작됐습니다.<br>이미 젠슨 황을 비롯한 글로벌 빅테크와 AI 리더들이 한국을 찾고 있습니다.</p>
+          <p style="margin:0">그러나 이 관심은 기업 별로, 행사마다 흩어져 있습니다.<br><br></p>
+          <p style="margin:0">이제 필요한 것은 흩어져 있는 이 관심과 에너지를</p>
+          <p style="margin:0;font-weight:700;color:#f3ff48">매년 세계가 대한민국을 찾게 만드는 하나의 거대한 흐름으로 응집하는 일입니다.</p>
+        </div>
+        <div class="fx-swipe-r" style="--delay:80ms;position:absolute;left:1532.75px;top:100.52px;width:319.251px;height:51.596px;background:#f3ff48"></div>
+        <div class="fx-up" style="--delay:200ms;--dur:1s;position:absolute;left:calc(50% + 892px);top:93px;transform:translateX(-100%);
+             text-align:right;white-space:nowrap;font-family:'Pretendard Variable',sans-serif;font-weight:900;color:#fff;
+             letter-spacing:-2.0638px;line-height:1.4">
+          <p style="margin:0;font-family:'Lexend Zetta:Regular',sans-serif;font-weight:400;color:#0b0c0b;font-size:47.296px">WHY 2026</p>
+          <p style="margin:0;font-size:68.795px">바로 올해가 변곡점입니다</p>
+        </div>
+        <div class="fx-o" style="--delay:200ms;--dur:1.2s;position:absolute;left:-40px;top:358px;width:1920px;height:722px">
+          <img src="assets/why2026-numeral.png" alt="2026" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none">
+        </div>
+        <div class="fx-o" style="--delay:150ms;--dur:1.1s;position:absolute;left:27px;top:361px;width:1165px;height:719px">
+          <img src="assets/why2026-jensen.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none">
+        </div>
+        <div class="fn"></div>
+      </div></div></div>
+    </div>
+
+    <!-- panel 3: WHY PAN (세대) -->
+    <div class="panel" data-panel="3">
+      <div class="scaled"><div class="scaled-inner"><div class="figpanel" style="background:#090f0b">
+        <div class="fx-o" style="--dur:1.2s;position:absolute;left:-68px;top:-41px;width:2046px;height:1150px">
+          <img src="assets/why-gen-tex.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6;pointer-events:none">
+        </div>
+        <div style="position:absolute;left:calc(50% + 1px);top:0;transform:translateX(-50%);width:1956px;height:656px;
+             background:linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,.5) 75.962%)"></div>
+        <div class="fx-swipe-l" style="--delay:80ms;position:absolute;left:85px;top:108px;width:291px;height:48px;background:#f3ff48"></div>
+        <div class="fx-up" style="--delay:200ms;--dur:1s;position:absolute;left:calc(50% - 875px);top:101px;white-space:nowrap;
+             font-family:'Pretendard Variable',sans-serif;font-weight:900;color:#fff;letter-spacing:-1.92px">
+          <p style="margin:0;font-family:'Lexend Zetta:Regular',sans-serif;font-weight:400;color:#0c0d0c;font-size:44px">WHY PAN</p>
+          <p style="margin:0;line-height:1.25;font-size:64px">10세부터 90세까지</p>
+          <p style="margin:0;line-height:1.25;font-size:64px">전 세대의 축제를 만듭니다</p>
+        </div>
+        <div class="fx-up" style="--delay:380ms;position:absolute;left:1871px;top:111px;transform:translateX(-100%);text-align:right;
+             white-space:nowrap;font-family:'Pretendard Variable',sans-serif;font-weight:500;color:#fff;letter-spacing:-.81px;font-size:27px;line-height:1.5">
+          <p style="margin:0;font-weight:700;color:#f3ff48">CEO들만의 폐쇄적인 컨퍼런스의 시대는 끝났습니다.</p>
+          <p style="margin:0;font-weight:700;color:#f3ff48">뉴스와 매거진으로만 접하는 AI 정보는 와닿지 않고 휘발될 뿐입니다.</p>
+          <p style="margin:0">&nbsp;</p>
+          <p style="margin:0">PAN은 따분하고 일방적인 양식을 과감히 지웠습니다. </p>
+          <p style="margin:0">거리를 지나는 누구나 AI를 직접 사용하고, 접하고, 느낍니다.</p>
+          <p style="margin:0">축제가 끝난 뒤 모든 세대에는 AI를 직접 써봤다는 경험, 그리고 배워보고 싶다는 마음이 남을 것입니다.</p>
+        </div>
+        <div style="position:absolute;left:-135px;top:618px">
+          <div class="fx-age" style="--delay:.3s;position:absolute;left:-92.39px;top:0;width:615.272px;height:490.378px">
+            <img src="assets/gen-photo-1.png" alt="" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <div class="fx-age" style="--delay:.38s;position:absolute;left:392.52px;top:0;width:615.272px;height:490.378px">
+            <img src="assets/gen-photo-2.png" alt="" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <div class="fx-age" style="--delay:.46s;position:absolute;left:877.43px;top:0;width:615.272px;height:490.378px">
+            <img src="assets/gen-photo-3.png" alt="" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <div class="fx-age" style="--delay:.54s;position:absolute;left:1362.35px;top:0;width:615.272px;height:490.378px">
+            <img src="assets/gen-photo-4.png" alt="" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <div class="fx-o" style="--delay:.6s;position:absolute;left:0;top:332.74px;width:2023.853px;height:158.256px">
+            <img src="assets/gen-strip.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+          </div>
+        </div>
+        <div style="position:absolute;left:50%;top:618px;transform:translateX(-50%);width:1920px;height:211px;
+             background:linear-gradient(180deg, #0d0f0e 0%, rgba(13,15,14,0) 100%)"></div>
+        <div class="genwrap fx-o" style="--delay:500ms;position:absolute;left:0;top:500px;width:1920px;height:220px;overflow:hidden">
+          <div class="genmarquee" id="genMarquee">
+            <span class="gennum" style="--i:0">10</span><span class="gennum" style="--i:1">20</span>
+            <span class="gennum" style="--i:2">30</span><span class="gennum" style="--i:3">40</span>
+            <span class="gennum" style="--i:4">50</span><span class="gennum" style="--i:5">60</span>
+            <span class="gennum" style="--i:6">70</span><span class="gennum" style="--i:7">80</span>
+            <span class="gennum" style="--i:8">90</span>
+            <span class="gennum" style="--i:0" aria-hidden="true">10</span><span class="gennum" style="--i:1" aria-hidden="true">20</span>
+            <span class="gennum" style="--i:2" aria-hidden="true">30</span><span class="gennum" style="--i:3" aria-hidden="true">40</span>
+            <span class="gennum" style="--i:4" aria-hidden="true">50</span><span class="gennum" style="--i:5" aria-hidden="true">60</span>
+            <span class="gennum" style="--i:6" aria-hidden="true">70</span><span class="gennum" style="--i:7" aria-hidden="true">80</span>
+            <span class="gennum" style="--i:8" aria-hidden="true">90</span>
+          </div>
+        </div>
+      </div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SEONGSU (성수 거리 소개) ============ -->
+<section class="pad seongsu-intro reveal" id="seongsu" data-reveal>
+  <img src="assets/seongsu-street.png" alt="" class="seongsu-bg">
+  <div class="seongsu-fade"></div>
+  <div class="seongsu-top">
+    <div class="seongsu-head">
+      <h3><span class="rise-wrap"><span class="rise-in">크리에이터들의 고향,</span></span></h3>
+      <h2 style="margin-top:.15em">
+        <span class="rise-wrap"><span class="rise-in" style="--rd:70ms">성수 거리가 그 무대입니다</span></span>
+      </h2>
+      <div class="fade" style="--fd:220ms"><div class="note" style="margin-top:.5em">*협의 추진 중</div></div>
+    </div>
+    <div class="fade seongsu-body" style="--fd:150ms">
+      <p class="body">기술과 문화, 브랜드와 크리에이터가 가장 밀도 높게 만나는 서울의 심장입니다.<br>
+      성수의 메인 거리에 생기는 3가지의 ZONE을 바탕으로<br>
+      도시 전체에 AI가 깊숙히 스며들어 동화됩니다.</p>
+    </div>
+  </div>
+  <img src="assets/seongsu-word.png" alt="SEONGSU" class="seongsu-word">
+  <div class="fn"></div>
+</section>
+
+<!-- ============ ZONES (horizontal pin) ============ -->
+<section class="hpin tall" id="zones">
+  <div class="vp">
+    <div class="track" id="zoneTrack">
+
+      <article class="zone">
+        <span class="z-n" aria-hidden="true">1</span>
+        <span class="z-space">MAIN SPACE 1</span>
+        <h4>BUILDER ZONE</h4>
+        <div class="place">블루엘리펀트 스페이스 성수</div>
+        <ul>
+          <li><b>Vibe Coding Live</b><span>참가자들이 현장에서 AI 코딩 툴로 실시간 서비스를 제작하며, 그 과정이 초대형 사이니지를 통해 거리를 지나는 모두에게 생중계됩니다.</span></li>
+          <li><b>Builder's Demo Day</b><span>이미 출시됐거나 베타 단계인 국내외 AI 서비스가 실제 사용자를 만나고, 투자자·액셀러레이터 앞에서 데모 피칭을 진행합니다. 관람객 투표로 '거리의 선택'을 뽑습니다.</span></li>
+          <li><b>Mentor Table</b><span>현업 개발자·창업가가 상주하며 즉석 코드 리뷰와 제품 피드백을 제공합니다.</span></li>
+        </ul>
+      </article>
+
+      <article class="zone">
+        <span class="z-n" aria-hidden="true">2</span>
+        <span class="z-space">MAIN SPACE 2</span>
+        <h4>ART ZONE</h4>
+        <div class="place">성수 아트홀</div>
+        <ul>
+          <li><b>AI Film Screening</b><span>국내외 AI 크리에이터들의 단편 필름이 매일 다른 섹션으로 상영됩니다. 오프닝 갈라, 신진 크리에이터 쇼케이스, 해외 초청작 특별전.</span></li>
+          <li><b>CINEMAI Awards</b><span>국내외 거장과 업계 심사위원단이 참여하는 시상식으로, AI 시네마틱·AI 비주얼 아트 등 부문별 수상작을 발표합니다.</span></li>
+          <li><b>Private GV</b><span>감독과의 대화, 제작 과정 공개 세션으로 "어떻게 만들었는지"까지 경험하게 합니다.</span></li>
+        </ul>
+      </article>
+
+      <article class="zone">
+        <span class="z-n" aria-hidden="true">3</span>
+        <span class="z-space">MAIN SPACE 3</span>
+        <h4>CITY ZONE</h4>
+        <div class="place">그로브1219</div>
+        <ul>
+          <li><b>Classroom</b><span>AI 친구와 영어를, AI 튜터와 수학을. 30분 먼저 경험하는 미래의 수업입니다.</span></li>
+          <li><b>Factory</b><span>수제화 공장의 도시 성수에서, 로봇이 일하는 새로운 공장이 열립니다. 휴머노이드 로봇들의 발전을 직접 체험하세요.</span></li>
+          <li><b>Company</b><span>기업의 AX 패러다임에 맞춘 채용 솔루션을 받고, 기업은 이 공간에서 미래의 인재를 직접 발굴합니다.</span></li>
+        </ul>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ PEOPLE ============ -->
+<section class="pad reveal" id="with" data-reveal>
+  <h2><span class="rise-wrap"><span class="rise-in">대한민국에 없던 판,</span></span><span class="rise-wrap"><span class="rise-in" style="--rd:70ms">함께 키울 사람을 찾습니다</span></span></h2>
+  <div class="people">
+    <div class="fade" style="--fd:0ms">
+      <div class="person">
+        <div class="nm">최동인</div>
+        <div class="role">THE HACK · 흑백개발자</div>
+        <p>한국 최고의 창업가 80여 명이 7일간 참여한 THE해커톤의 총괄 리드입니다. 이로 2.2만의 팔로워, 누적 조회수 1,980만 뷰를 이끌었습니다.</p>
+      </div>
+    </div>
+    <div class="fade" style="--fd:120ms">
+      <div class="person">
+        <div class="nm">김인기</div>
+        <div class="role">ROCKETPUNCH</div>
+        <p>62만 명 이상의 회원, 20만 이상의 기업 프로필, 연 순방문자 370만 명을 보유한 로켓펀치의 대표입니다. 한국 경제활동인구 7명 중 1명이 방문한 커리어 플랫폼입니다.</p>
+      </div>
+    </div>
+    <div class="fade" style="--fd:240ms">
+      <div class="person">
+        <div class="nm">한원준</div>
+        <div class="role">BLOOM · CLIWANT</div>
+        <p>17,000명 이상이 참여한 Bloom 공동 주최이자, 2,000명 이상이 신청한 Anthropic 지원 밋업 공동 주최입니다. Singtel 후원을 받으며 서울에서 싱가포르로 확장했습니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="people people-compact">
+    <div class="fade" style="--fd:0ms"><div class="person"><div class="nm">최장우</div><div class="role">2026 수능만점자 · ATLASchool</div></div></div>
+    <div class="fade" style="--fd:120ms"><div class="person"><div class="nm">한관엽</div><div class="role">YC F25 · Aleph Lab</div></div></div>
+    <div class="fade" style="--fd:240ms"><div class="person"><div class="nm">변승주</div><div class="role">유튜브 대생이 · 구독자 339만</div></div></div>
+  </div>
+
+  <div class="stats" id="stats">
+    <div class="stat"><div class="n" data-to="22949">0</div><div class="l">@thehackathonkr<br>Followers</div></div>
+    <div class="stat"><div class="n" data-to="19802327">0</div><div class="l">@thehackathonkr<br>Total Views</div></div>
+    <div class="stat"><div class="n" data-to="620000">0</div><div class="l">Rocketpunch<br>Members</div></div>
+    <div class="stat"><div class="n" data-to="3700000">0</div><div class="l">Rocketpunch<br>YAU</div></div>
+  </div>
+</section>
+
+<!-- ============ ROADMAP (= PAN VISION 위치) ============ -->
+<section class="pad reveal" id="roadmap" data-reveal>
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,90px);align-items:start">
+    <h2>
+      <span class="rise-wrap"><span class="rise-in">1회성 행사가 아닌,</span></span>
+      <span class="rise-wrap"><span class="rise-in" style="--rd:70ms">매년 세계가 찾는 국가급 IP로</span></span>
+    </h2>
+    <div class="fade" style="--fd:120ms">
+      <p class="body">첫 행사는 비영리로 개최합니다. 이후 CES와 올림픽처럼 특정 기업이 아닌 독립 운영 기구를 세워, 기업·정부·지자체·글로벌 파트너가 함께 키우는 연례 IP로 성장시킵니다. 우리가 만드는 것은 행사가 아니라, 매년 세계가 대한민국을 찾아올 새로운 이유입니다.</p>
+    </div>
+  </div>
+  <div class="tl-wrap" id="railBox">
+    <div class="tl-line"></div>
+    <div class="tl-item up">
+      <div class="tl-card">
+        <div class="tl-y">2026 ㅣ 1회 개최</div>
+        <p>성수 거리에서 첫 판을 엽니다.<br>국내 빌더·크리에이터·투자자 네트워크의 원형이 만들어집니다.</p>
+      </div>
+      <div class="tl-stick"></div><div class="tl-dot"></div>
+    </div>
+    <div class="tl-item down">
+      <div class="tl-dot"></div><div class="tl-stick"></div>
+      <div class="tl-card">
+        <div class="tl-y">2027 ㅣ 상설화</div>
+        <p>축제가 끝나도 운영되는 오프라인 거점을 만들고,<br>PAN이 발굴한 팀들의 성장을 연중 추적·지원합니다.</p>
+      </div>
+    </div>
+    <div class="tl-item up">
+      <div class="tl-card">
+        <div class="tl-y">2029 ㅣ 자본화</div>
+        <p>파운딩 파트너가 출자하는 시드 매칭 펀드를 조성해,<br>PAN에서 발굴된 팀에 실질적인 자본이 흐르게 합니다.</p>
+      </div>
+      <div class="tl-stick"></div><div class="tl-dot"></div>
+    </div>
+    <div class="tl-item down">
+      <div class="tl-dot"></div><div class="tl-stick"></div>
+      <div class="tl-card">
+        <div class="tl-y">2030~ ㅣ 확장</div>
+        <p>도쿄, 싱가포르, 자카르타 등 아시아 주요 도시로 PAN의 이름과 포맷을 확장하며,<br>서울을 그 첫 번째이자 상징적인 본진으로 만듭니다.</p>
+      </div>
+    </div>
+  </div>
+  <div class="tl-word" aria-hidden="true">ROADMAP</div>
+</section>
+
+<!-- ============ PARTNERS ============ -->
+<section class="pad reveal" id="partners" data-reveal>
+  <h2 style="max-width:18ch">
+    <span class="rise-wrap"><span class="rise-in">이정도 규모의 판은,</span></span>
+    <span class="rise-wrap"><span class="rise-in" style="--rd:70ms">한 팀만으로 만들 수 없습니다</span></span>
+  </h2>
+  <div class="two">
+    <div class="fade" style="--fd:0ms">
+      <div class="box">
+        <div class="lab">WE ARE LOOKING FOR</div>
+        <h4>이런 기업과 사람을 찾습니다</h4>
+        <ul>
+          <li>AI 기술을 대중에게 자연스럽게 알리고 싶은 스타트업·빅테크</li>
+          <li>글로벌 진출을 준비 중인 로보틱스·AI 서비스 기업</li>
+          <li>브랜드 체험을 통해 새로운 시장을 열고 싶은 기업</li>
+          <li>인재 채용·투자 유치를 원하는 창업팀</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fade" style="--fd:120ms">
+      <div class="box solid">
+        <div class="lab">BENEFITS</div>
+        <h4>참여 시 혜택</h4>
+        <ul>
+          <li>10만+ 방문객 대상 오픈 부스·체험존 운영</li>
+          <li>300~500명 글로벌 파트너 대상 프라이빗 네트워킹 (영어 진행)</li>
+          <li>스폰서십·광고 패키지, 공간 파트너, 인터뷰·미디어 콘텐츠 협업</li>
+          <li>축제 종료 후에도 이어지는 상설 창업자·크리에이터 네트워크</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="two two-tiers">
+    <div class="fade" style="--fd:180ms">
+      <div class="box box-sm">
+        <div class="lab">Founding Partners</div>
+        <h4>파운딩 파트너</h4>
+        <p class="body">초기부터 IP의 성장 과정에 참여하며, 창립 파트너로서 지속적인 예우와 함께 향후 독립 운영 기구의 창립 멤버 후보로 우선 검토됩니다.</p>
+      </div>
+    </div>
+    <div class="fade" style="--fd:240ms">
+      <div class="box box-sm">
+        <div class="lab">Partners</div>
+        <h4>파트너</h4>
+        <p class="body">스폰서십·광고 패키지(Presented by), 공간 파트너, 인터뷰·미디어 콘텐츠 협업 파트너를 환영합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ISLAND ============ -->
+<section class="island pad reveal" id="island" data-reveal>
+  <div>
+    <div class="fade" style="margin-bottom:.6em"><div class="eyebrow">경기도 시흥, 거북섬 Geobukseom-dong</div></div>
+    <h2 style="margin:.4em 0 .6em"><span class="rise-wrap"><span class="rise-in">스타트업, 도시로의 첫 도약입니다</span></span></h2>
+    <div class="fade" style="--fd:120ms">
+      <p class="body">PAN은 성수의 거리에서 끝나지 않습니다.<br>축제에서 시작된 창업가와 크리에이터의 연결은, 실제 도시로 이어집니다.</p>
+      <p class="body" style="margin-top:1.4em">거북섬은 창업가와 크리에이터가 짧게는 몇 주, 길게는 몇 달간 함께 머물며<br>아이디어를 실제 사업으로 발전시키는 체류형 창업 거점으로 조성됩니다.</p>
+      <ul class="island-feats">
+        <li><b>레지던시형 주거·오피스</b><span>창업가와 크리에이터가 머무는 공간</span></li>
+        <li><b>오픈 데모 공간</b><span>투자자·기업이 상시 방문해 프로젝트를 발굴</span></li>
+      </ul>
+      <p class="body" style="margin-top:1.4em;color:var(--neon);font-weight:700">축제가 만든 열기를 1회성 이벤트로 소비하지 않고,<br>도시 단위의 지속 가능한 창업 생태계로 전환하고 확장합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUTRO ============ -->
+<footer class="outro">
+  <div class="stars" aria-hidden="true"></div>
+  <div class="cut" role="img" aria-label="PAN">
+    <svg viewBox="0 0 1920 452" fill="none" preserveAspectRatio="none">
+      <path d="M1920 452H0V0H1920V452ZM309.367 32.3848C218.252 32.3855 122.075 31.3029 31.6055 32.5908L31.3818 122.611C69.8734 123.596 112.806 122.89 151.639 122.928L381.676 123.054L457.622 122.958C467.641 122.946 478.827 123.116 488.723 122.984C564.091 121.977 596.406 179.608 542.608 210.343C517.818 224.506 487.235 221.841 455.784 221.856L157.828 221.839C116.769 221.834 72.3055 221.326 31.5195 222.225C31.5554 283.736 32.6426 346.683 31.3916 408.061L194.534 408.123C194.977 375.985 195.09 343.845 194.875 311.705C254.58 313.323 328.813 312.093 389.052 312.039L470.654 311.991C502.481 311.964 528.173 312.464 560.175 308.417C573.452 306.738 585.971 304.44 597.731 301.598L544.257 358.702C535.225 368.336 504.051 399.594 498.492 408.6C556.719 409.295 615.414 408.389 673.631 408.777C730.375 347.968 785.544 282.472 840.23 220.72C858.707 200.003 876.926 179.198 894.881 158.307C901.47 150.714 916.168 135.486 919.642 128.042C929.916 138.714 939.519 149.631 948.426 160.768C998.597 218.198 1049.34 275.436 1100.64 332.479C1121.74 356.193 1142.64 380.275 1163.83 403.98C1165.1 405.401 1167.81 408.241 1170.06 408.391C1173.54 408.622 1178.91 408.751 1185.06 408.822C1185.06 408.847 1185.06 408.872 1185.06 408.896L1195.32 408.891C1198.93 408.899 1202.6 408.895 1206.13 408.885L1340.19 408.816C1341.83 328.286 1340.79 245.175 1340.3 164.494C1366.16 183.073 1395.87 201.499 1423.07 219.479L1549.35 304.186L1639.06 364.641L1668.27 384.437C1709.64 412.817 1717.56 408.968 1775.9 408.896L1866.68 408.796C1870.69 408.775 1870.98 409.232 1873.12 407.941C1874.72 397.973 1873.55 378.736 1873.54 367.938V32.9932C1823.22 33.1553 1768.11 32.406 1718.22 33.2969L1718.31 200.91C1718.36 224.397 1716.95 253.075 1718.48 276.065L1718.11 275.892C1712.31 273.142 1707.59 269.612 1702.69 266.279C1687.91 256.23 1672.75 246.399 1658.01 236.328L1424.11 74.0732C1400.91 57.7095 1372.02 32.8136 1333.85 33.1592C1287.16 33.5819 1236.92 31.9633 1190.51 33.3877L1186.27 33.7393C1183.93 35.877 1185.11 92.9863 1185.1 100.206L1185.06 232.793L1073.11 110.72C1050.22 85.5952 1025.66 57.692 1002.15 33.0693C951.433 32.9299 897.782 32.4605 847.29 33.1709C840.704 38.1164 829.857 50.3353 824.222 56.3516C810.185 71.326 796.314 86.3596 782.609 101.452L732.639 155.831C723.639 100.202 665.848 48.1005 558.691 35.5947C519.57 31.0294 485.943 32.3374 445.842 32.3477L309.367 32.3848Z" fill="#F3FF48"/>
+    </svg>
+  </div>
+  <div class="globe" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="by">Designed by IMBY · @imbykorea</div>
+    <div class="who">
+      <div class="nm">최동인</div>
+      <div><a href="tel:01064950381">010-6495-0381</a></div>
+      <div><a href="mailto:cdiseetheeye@gmail.com">cdiseetheeye@gmail.com</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ 하단 내비게이션 (원래 버전 유지) ============ -->
+<nav id="nav" aria-label="챕터">
+  <a href="#stackWrapper" data-target="stackWrapper">WHY PAN</a>
+  <a href="#zones" data-target="zones">WHAT PAN</a>
+  <a href="#with" data-target="with">WITH PAN</a>
+  <a href="#roadmap" data-target="roadmap">PAN VISION</a>
+  <a href="mailto:cdiseetheeye@gmail.com" data-target="partners" class="cta">파트너 문의</a>
+</nav>
+
+<script>
+(function(){
+var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- ScaledDesign: 1920x1080 프레임을 컨테이너에 맞춰 스케일 ---------- */
+function applyScale(el){
+  var inner = el.querySelector('.scaled-inner');
+  if(!inner) return;
+  var r = el.getBoundingClientRect();
+  var scale = Math.min(r.width/1920, r.height/1080);
+  inner.style.transform = 'translate(-50%,-50%) scale(' + scale + ')';
+}
+var scaledEls = [].slice.call(document.querySelectorAll('.scaled'));
+scaledEls.forEach(applyScale);
+if(window.ResizeObserver){
+  scaledEls.forEach(function(el){
+    new ResizeObserver(function(){ applyScale(el); }).observe(el);
+  });
+} else {
+  addEventListener('resize', function(){ scaledEls.forEach(applyScale); });
+}
+
+/* ---------- Rise/Fade reveal (IntersectionObserver 0.2 / 0.3 / 0.4) ---------- */
+var io = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
+}, { threshold: .25 });
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+/* ---------- 숫자 카운터 ---------- */
+var nio = new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(!e.isIntersecting) return;
+    nio.unobserve(e.target);
+    var el = e.target, to = +el.dataset.to, t0 = performance.now(), dur = 1600;
+    if(reduce){ el.textContent = to.toLocaleString('en-US'); return; }
+    (function tick(t){
+      var k = Math.min(1,(t-t0)/dur), ease = 1-Math.pow(1-k,3);
+      el.textContent = Math.round(to*ease).toLocaleString('en-US');
+      if(k<1) requestAnimationFrame(tick);
+    })(t0);
+  });
+}, { threshold: .6 });
+document.querySelectorAll('.stat .n').forEach(function(el){ nio.observe(el); });
+
+/* ---------- 타임라인 항목 순차 등장 ---------- */
+var rio = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); } });
+}, { threshold: .3 });
+var railBox = document.getElementById('railBox');
+if(railBox) rio.observe(railBox);
+
+/* ---------- WHY STACK: 스크롤 진행률로 4패널 크로스페이드 ---------- */
+var stackWrapper = document.getElementById('stackWrapper');
+var panels = [].slice.call(document.querySelectorAll('.panel'));
+var dots = [].slice.call(document.querySelectorAll('.panel-dot'));
+var mounted = new Set([0]);
+var activePanel = 0;
+
+function setActivePanel(p){
+  if(p === activePanel) return;
+  activePanel = p;
+  mounted.add(p);
+  panels.forEach(function(panel, i){
+    var isActive = i === p, isPast = i < p;
+    panel.classList.toggle('active', isActive);
+    panel.classList.toggle('past', isPast && !isActive);
+  });
+  dots.forEach(function(d,i){ d.classList.toggle('active', i===p); });
+}
+
+/* ---------- 히어로 스크롤 패럴랙스 + PAN 로고 등장 ---------- */
+var heroPan = document.getElementById('heroPan');
+var heroGlobe = document.getElementById('heroGlobe');
+setTimeout(function(){
+  if(heroPan){ heroPan.style.opacity = '1'; heroPan.style.transform = 'translateY(0)'; }
+}, 120);
+
+var barsEls = [].slice.call(document.querySelectorAll('.progress i'));
+var chapterEls = {
+  why:   document.getElementById('stackWrapper'),
+  what:  document.getElementById('zones'),
+  with:  document.getElementById('with'),
+  roadmap: document.getElementById('roadmap'),
+  partners: document.getElementById('partners')
+};
+var chapterRanges = [
+  { top: chapterEls.why.offsetTop, bot: chapterEls.why.offsetTop + chapterEls.why.offsetHeight },
+  { top: chapterEls.what.offsetTop, bot: chapterEls.what.offsetTop + chapterEls.what.offsetHeight },
+  { top: chapterEls.with.offsetTop, bot: chapterEls.with.offsetTop + chapterEls.with.offsetHeight },
+  { top: chapterEls.roadmap.offsetTop, bot: chapterEls.partners.offsetTop + chapterEls.partners.offsetHeight }
+];
+var zoneSection = document.getElementById('zones');
+var zoneTrack = document.getElementById('zoneTrack');
+
+var ticking = false;
+function frame(){
+  var y = window.scrollY, vh = window.innerHeight;
+
+  /* hero */
+  if(y < vh){
+    var p = Math.min(1, y/vh);
+    if(heroPan){
+      heroPan.style.opacity = String(Math.max(0, 1 - p*2.4));
+      heroPan.style.transform = 'translateY(' + (-p*64) + 'px)';
+    }
+    if(heroGlobe) heroGlobe.style.transform = 'scale(' + (1+p*0.44) + ') translateZ(0)';
+  }
+
+  /* 상단 진행바: WHY / WHAT / WITH / VISION 4구간, 각 구간 실제 스크롤 범위 기준 */
+  chapterRanges.forEach(function(r, i){
+    var span = Math.max(1, r.bot - r.top);
+    var prog = (y - r.top) / span;
+    barsEls[i].style.setProperty('--p', Math.max(0, Math.min(1, prog)).toFixed(4));
+  });
+
+  /* WHY stack progress */
+  if(stackWrapper){
+    var r = stackWrapper.getBoundingClientRect();
+    var total = stackWrapper.offsetHeight - vh;
+    if(total > 0){
+      var progress = Math.max(0, Math.min(1, -r.top/total));
+      var panelIdx = Math.min(panels.length-1, Math.floor(progress*panels.length));
+      setActivePanel(panelIdx);
+    }
+  }
+
+  /* zones horizontal pin */
+  if(zoneSection && zoneTrack){
+    var zr = zoneSection.getBoundingClientRect();
+    var ztotal = zoneSection.offsetHeight - vh;
+    var zprog = ztotal>0 ? Math.max(0, Math.min(1, -zr.top/ztotal)) : 0;
+    var dist = Math.max(0, zoneTrack.scrollWidth - window.innerWidth + 40);
+    zoneTrack.style.transform = 'translate3d(' + (-zprog*dist) + 'px,0,0)';
+  }
+
+  /* 하단 내비 활성 표시 */
+  var navLinks = navLinksCache;
+  var active = navTargets[0];
+  navTargetsEls.forEach(function(el, i){
+    if(!el) return;
+    var rr = el.getBoundingClientRect();
+    if(rr.top < vh*0.5) active = navTargets[i];
+  });
+  navLinks.forEach(function(a){ a.classList.toggle('on', a.dataset.target === active); });
+
+  ticking = false;
+}
+function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(frame); } }
+
+var navTargets = ['stackWrapper','zones','with','roadmap','partners'];
+var navTargetsEls = navTargets.map(function(id){ return document.getElementById(id); });
+var navLinksCache = [].slice.call(document.querySelectorAll('#nav a'));
+
+window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('resize', onScroll);
+frame();
+
+/* ---------- 쫀득한 화면 스냅: 단일 화면 섹션에서만 동작 (WHY 스택/ZONE 가로스크롤 구간은 건드리지 않음) ---------- */
+var touch = matchMedia('(hover:none)').matches;
+if(!touch && !reduce){
+  /* 전체 블록(메가 섹션 포함)을 문서 순서대로 - '다음 경계'를 정확히 찾기 위해 필요 */
+  var allBlocks = [].slice.call(document.querySelectorAll('#hero, .intro-screen, #stackWrapper, #zones, .pad, .outro'));
+  var simpleSet = new WeakSet([].slice.call(document.querySelectorAll('#hero, .intro-screen, .pad, .outro')));
+  var snapAnimating = false;
+  function currentBlockIndex(){
+    var y = scrollY;
+    for(var i=0;i<allBlocks.length;i++){
+      var top = allBlocks[i].offsetTop, bot = top + allBlocks[i].offsetHeight;
+      if(y >= top - 2 && y < bot - 2) return i;
+    }
+    return -1;
+  }
+  function ease(t){ var c1=1.2, c3=c1+1; return 1 + c3*Math.pow(t-1,3) + c1*Math.pow(t-1,2); }
+  function snapGoTo(i){
+    i = Math.max(0, Math.min(allBlocks.length-1, i));
+    snapAnimating = true;
+    var startY = scrollY, top = allBlocks[i].offsetTop, dist = top - startY, dur = 760, t0 = null;
+    requestAnimationFrame(function tick(now){
+      if(!t0) t0 = now;
+      var p = Math.min((now-t0)/dur, 1);
+      scrollTo(0, startY + dist*ease(p));
+      if(p < 1) requestAnimationFrame(tick);
+      else setTimeout(function(){ snapAnimating = false; }, 30);
+    });
+  }
+  var wheelLock = 0;
+  window.addEventListener('wheel', function(e){
+    if(snapAnimating){ e.preventDefault(); return; }
+    var idx = currentBlockIndex();
+    if(idx === -1 || !simpleSet.has(allBlocks[idx])) return; /* WHY 스택/ZONE 구간 안에서는 원래 스크롤을 그대로 둔다 */
+    e.preventDefault();
+    var now = Date.now();
+    if(now - wheelLock < 650) return;
+    wheelLock = now;
+    snapGoTo(idx + (e.deltaY > 0 ? 1 : -1)); /* 바로 다음/이전 '실제' 블록 경계로만 이동 — 메가 섹션을 건너뛰지 않음 */
+  }, { passive: false });
+}
+})();
+</script>
+</body>
+</html>
