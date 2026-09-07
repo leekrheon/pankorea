@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026 PAN KOREA</title>
+<meta name="description" content="올 겨울, 새로운 판이 성수에 벌어집니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="2026 PAN KOREA">
+<meta property="og:description" content="올 겨울, 새로운 판이 성수에 벌어집니다.">
+<meta property="og:image" content="assets/preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="2026 PAN KOREA">
+<meta name="twitter:description" content="올 겨울, 새로운 판이 성수에 벌어집니다.">
+<meta name="twitter:image" content="assets/preview.png">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Zetta:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="preload" as="video" href="assets/earth.mp4" type="video/mp4">
+<style>
+@font-face{font-family:"Lexend Zetta:Regular";font-style:normal;font-weight:400;src:url("https://static.figma.com/font/LexendZetta_wght__1") format("woff2")}
+@font-face{font-family:"Lexend Giga:SemiBold";font-style:normal;font-weight:600;src:url("https://static.figma.com/font/LexendGiga_wght__1") format("woff2")}
+@font-face{font-family:"Lexend Giga:Black";font-style:normal;font-weight:900;src:url("https://static.figma.com/font/LexendGiga_wght__1") format("woff2")}
+
+:root{
+  --navy:#091c3f; --navy-deep:#050f24; --neon:#f3ff48; --ink:#07142e;
+  --dim:rgba(243,255,72,.55); --line:rgba(243,255,72,.22);
+  --sans:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  --mono:"Lexend Zetta","Pretendard Variable",sans-serif;
+  --pad:clamp(20px,4vw,72px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--navy);color:var(--neon);font-family:var(--sans);font-weight:500;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;letter-spacing:-.01em}
+img{display:block;max-width:none}
+
+body::after{content:"";position:fixed;inset:0;z-index:9000;pointer-events:none;
+  background-image:url("assets/noise.png");background-size:706px 360px;opacity:.09;mix-blend-mode:soft-light}
+
+/* progress */
+.progress{position:fixed;top:0;left:0;right:0;height:5px;z-index:9500;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.progress i{display:block;background:rgba(243,255,72,.18);position:relative;overflow:hidden}
+.progress i::after{content:"";position:absolute;inset:0;background:var(--neon);transform:scaleX(var(--p,0));transform-origin:left}
+
+/* hud */
+.hud{position:fixed;top:22px;left:var(--pad);right:var(--pad);z-index:9400;display:flex;justify-content:space-between;
+  align-items:baseline;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  mix-blend-mode:difference;color:#fff}
+.hud b{font-weight:700}
+.hud .mid{opacity:.7;font-family:var(--sans);letter-spacing:0;text-transform:none}
+@media(max-width:720px){.hud .mid{display:none}}
+
+/* hero */
+#hero{height:100svh;position:relative;overflow:hidden;background:#091c3f;scroll-snap-align:start;scroll-snap-stop:always}
+.scrollcue{position:absolute;left:var(--pad);bottom:20px;z-index:10;font-family:var(--mono);font-size:10px;
+  letter-spacing:.14em;color:var(--neon);opacity:.75;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+@keyframes k-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-22px)}}
+
+/* sections */
+section{position:relative}
+.pad{padding:clamp(90px,12vh,170px) var(--pad);min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  scroll-snap-align:start;scroll-snap-stop:always}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--dim)}
+h2{font-size:clamp(30px,4.6vw,68px);line-height:1.18;font-weight:700;letter-spacing:-.035em}
+h3{font-size:clamp(21px,2.3vw,34px);line-height:1.3;font-weight:700;letter-spacing:-.03em}
+p.body{font-size:clamp(15px,1.15vw,19px);line-height:1.85;font-weight:400;color:rgba(243,255,72,.86);max-width:64ch}
+.mark{background:var(--neon);color:var(--navy);padding:0 .12em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.w900{font-weight:900}.w800{font-weight:800}.w700{font-weight:700}.w600{font-weight:600}.w500{font-weight:500}.w400{font-weight:400}
+
+/* rise / fade helpers (React Rise/Fade 재현) */
+.rise-wrap{display:block;overflow:hidden}
+.rise-in{display:block;transform:translateY(105%);transition:transform .95s cubic-bezier(.16,1,.3,1) var(--rd,0ms)}
+.on .rise-in{transform:translateY(0)}
+.fade{opacity:0;transform:translateY(18px);transition:opacity .8s ease var(--fd,0ms),transform .8s cubic-bezier(.16,1,.3,1) var(--fd,0ms)}
+.on .fade{opacity:1;transform:none}
+
+/* intro / why-stack scaled figma frames */
+.scaled{width:100%;height:100%;overflow:hidden;position:relative}
+.scaled-inner{width:1920px;height:1080px;position:absolute;top:50%;left:50%;transform-origin:center center;will-change:transform}
+.figpanel{position:relative;width:1920px;height:1080px;overflow:hidden;background:#090f0b}
+
+/* Frame reveal helper classes (data-attr 로 delay 부여) */
+.fx-o{opacity:0;transition:opacity var(--dur,.9s) ease var(--delay,0s)}
+.panel.active .fx-o{opacity:1}
+.fx-up{opacity:0;transform:translateY(24px);transition:opacity var(--dur,.9s) ease var(--delay,0s),transform var(--dur,.9s) cubic-bezier(.16,1,.3,1) var(--delay,0s)}
+.panel.active .fx-up{opacity:1;transform:translateY(0)}
+.fx-swipe-l{transform:scaleX(0);transform-origin:left center;transition:transform .8s cubic-bezier(.16,1,.3,1) var(--delay,0s)}
+.panel.active .fx-swipe-l{transform:scaleX(1)}
+.fx-swipe-r{transform:scaleX(0);transform-origin:right center;transition:transform .85s cubic-bezier(.16,1,.3,1) var(--delay,60ms)}
+.panel.active .fx-swipe-r{transform:scaleX(1)}
+.fx-scale107{transform:scale(1.07);transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
+.panel.active .fx-scale107{transform:scale(1)}
+.fx-bar{width:0;transition:width 1s cubic-bezier(.16,1,.3,1) var(--delay,0s)}
+.panel.active .fx-bar{width:617.887px}
+.fx-age{opacity:0;transform:translateY(40px);transition:opacity .8s ease var(--delay,.3s),transform .9s cubic-bezier(.16,1,.3,1) var(--delay,.3s)}
+.panel.active .fx-age{opacity:.7;transform:translateY(0)}
+.kshape{animation:none}
+.panel.active .kshape{animation:k-float 5s ease-in-out infinite}
+
+/* WHY PAN 세대 숫자: 오른쪽에서 들어와 왼쪽으로 흐르며 순서대로 한 번씩 밝아짐 */
+.genmarquee{display:flex;align-items:center;gap:70px;width:max-content;
+  animation:genscroll 22s linear infinite}
+.gennum{font-family:'Pretendard Variable',sans-serif;font-weight:900;font-size:171.857px;
+  letter-spacing:-5.1557px;line-height:1;color:rgba(243,255,72,.16);white-space:nowrap;
+  animation:gennglow 22s ease-in-out infinite;animation-delay:calc(var(--i) * (22s/9))}
+@keyframes genscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes gennglow{
+  0%,89%,100%{color:rgba(243,255,72,.16);text-shadow:none}
+  4%{color:#f3ff48;text-shadow:0 0 46px rgba(243,255,72,.65)}
+}
+@media(prefers-reduced-motion:reduce){
+  .genmarquee{animation:none}
+  .gennum{animation:none;color:rgba(243,255,72,.16)}
+}
+
+/* Intro (Frame-1) */
+.i-headline{position:absolute;left:976px;top:240px;transform:translate(-50%,-50%);text-align:center;
+  font-family:'Pretendard Variable',sans-serif;font-weight:900;font-size:95px;letter-spacing:-2.85px;
+  white-space:nowrap;line-height:1.2;color:#fff}
+.i-date{position:absolute;left:976.84px;top:374px;transform:translate(-50%,-50%);white-space:nowrap;
+  font-family:'Lexend Giga:SemiBold',sans-serif;font-weight:600;font-size:131.641px;letter-spacing:-3.9492px;
+  line-height:1.2;text-align:center;color:#fff}
+.i-note{position:absolute;left:958.5px;top:111px;transform:translate(-50%,-50%);white-space:nowrap;
+  text-align:center;font-family:'Pretendard Variable',sans-serif;font-weight:600;font-size:20px;letter-spacing:-.6px;color:#d3d3d3}
+.i-bottom{position:absolute;left:50%;top:948px;transform:translate(-50%,-50%);text-align:center;white-space:nowrap;
+  font-family:'Pretendard Variable',sans-serif;font-weight:600;font-size:27px;letter-spacing:-.81px;color:#fff;line-height:1.5}
+.i-bottom b{display:block;font-weight:700;color:var(--neon)}
+/* 번역(EN/ZH) 전용 안전장치: 한국어 기본 레이아웃은 절대 건드리지 않음 */
+html:not([lang="ko"]) .i18n-wrap{white-space:normal!important;width:var(--i18nmax,1800px)!important;max-width:none!important}
+
+/* chapter */
+.chapter{height:100svh;display:grid;place-items:center;position:relative}
+.chapter .inner{position:relative;z-index:1;text-align:center}
+.chapter .num{font-family:var(--mono);font-weight:700;font-size:clamp(28px,4vw,58px);letter-spacing:-.04em}
+.chapter .word{font-family:var(--mono);font-weight:900;font-size:clamp(64px,15vw,215px);line-height:.9;letter-spacing:-.06em;margin:.12em 0}
+.chapter .sub{font-size:clamp(16px,1.7vw,27px);font-weight:600}
+
+/* WHY stack */
+.stack-wrapper{position:relative;height:400vh;scroll-snap-align:start;scroll-snap-stop:always}
+.stack-sticky{position:sticky;top:0;height:100svh;overflow:hidden}
+.panel{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+  border-top:1px solid var(--line);overflow:hidden;opacity:0;transform:translateY(28px);
+  transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);pointer-events:none}
+.panel.active{opacity:1;transform:none;pointer-events:auto}
+.panel.past{transform:translateY(-28px)}
+.panel-dots{position:absolute;right:var(--pad);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:10}
+.panel-dot{width:6px;height:6px;border-radius:50%;background:rgba(243,255,72,.25);transition:background .4s ease,transform .4s ease}
+.panel-dot.active{background:var(--neon);transform:scale(1.4)}
+
+/* ages marquee (구 버전 자리 표시가 아니라 zip 원본엔 없음 - 생략) */
+
+/* hpin: zones */
+.hpin{height:360vh;position:relative;scroll-snap-align:start;scroll-snap-stop:always}
+.hpin .vp{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center}
+.hpin .track{display:flex;gap:clamp(20px,3vw,48px);padding:0 var(--pad);will-change:transform}
+.zone{flex:0 0 min(84vw,660px);border:1px solid var(--line);padding:clamp(24px,2.6vw,44px);
+  height:min(70vh,620px);display:flex;flex-direction:column;position:relative;overflow:hidden;background:var(--navy)}
+.zone .z-n{font-family:var(--mono);font-weight:900;font-size:clamp(80px,14vw,190px);line-height:.82;
+  color:rgba(243,255,72,.1);position:absolute;right:.05em;top:-.06em;pointer-events:none}
+.zone .z-space{font-family:var(--mono);font-size:11px;letter-spacing:.1em;background:var(--neon);color:var(--navy);
+  padding:.45em .7em;align-self:flex-start}
+.zone h4{font-family:var(--mono);font-weight:900;font-size:clamp(26px,3.2vw,52px);letter-spacing:-.045em;margin:.5em 0 .1em;line-height:1}
+.zone .place{font-size:clamp(16px,1.5vw,22px);font-weight:700;margin-bottom:.7em}
+.zone .zone-intro{font-size:clamp(12.5px,.95vw,15px);line-height:1.6;font-weight:500;color:#dfe8e2;margin-bottom:.9em}
+.zone ul{list-style:none;display:flex;flex-direction:column;gap:1.05em;margin-top:auto;overflow:auto}
+.zone li{border-top:1px solid var(--line);padding-top:.85em}
+.zone li b{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.04em;margin-bottom:.5em}
+.zone li span{font-size:14.5px;line-height:1.75;font-weight:400;color:rgba(243,255,72,.8)}
+
+/* Seongsu intro */
+.seongsu-intro{position:relative;overflow:hidden;background:#090f0b;justify-content:flex-start!important;
+  padding:clamp(80px,13vh,140px) var(--pad) 0!important}
+.seongsu-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;pointer-events:none}
+.seongsu-fade{position:absolute;left:0;right:0;top:0;height:58%;
+  background:linear-gradient(to top, rgba(9,15,11,0) 0%, rgba(9,15,11,.55) 100%);pointer-events:none}
+.seongsu-top{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-start;
+  gap:clamp(20px,4vw,60px);flex-wrap:wrap}
+.seongsu-head h3{font-size:clamp(20px,2.3vw,34px);font-weight:600;letter-spacing:-.03em;color:#fff}
+.seongsu-head h2{font-size:clamp(28px,3.9vw,54px);font-weight:800;letter-spacing:-.035em;line-height:1.25}
+.seongsu-body{max-width:46ch;text-align:right;margin-left:auto}
+.seongsu-body .body{color:#fff;text-align:right;max-width:none}
+.seongsu-word{position:relative;z-index:2;margin-top:auto;width:100%;height:auto;
+  mix-blend-mode:difference;pointer-events:none}
+@media(max-width:760px){
+  .seongsu-top{flex-direction:column}
+  .seongsu-body{text-align:left;margin-left:0}
+  .seongsu-body .body{text-align:left}
+}
+
+/* people/stats */
+.people{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3vw,56px);margin-top:clamp(30px,5vh,60px)}
+@media(max-width:860px){.people{grid-template-columns:1fr}}
+.people-roomy{margin-top:clamp(46px,8vh,100px);gap:clamp(32px,4.5vw,84px)}
+.people-roomy .person{padding-top:1.7em}
+.people-roomy .person .nm{font-size:clamp(24px,2.4vw,36px)}
+.people-roomy .person .role{margin:.75em 0 1.35em;font-size:12px}
+.people-roomy .person p{font-size:clamp(14.5px,1.15vw,16.5px);line-height:1.85}
+.person{border-top:1px solid var(--neon);padding-top:1.1em}
+.person .nm{font-size:clamp(22px,2vw,30px);font-weight:700;letter-spacing:-.03em}
+.person .role{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--dim);margin:.5em 0 1em}
+.person p{font-size:14px;line-height:1.65;font-weight:400;color:rgba(243,255,72,.82)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(18px,2.5vw,40px);margin-top:clamp(40px,7.5vh,90px)}
+@media(max-width:860px){.stats{grid-template-columns:1fr 1fr}}
+.stat{border-bottom:1px solid var(--line);padding-bottom:.7em}
+.stat .n{font-family:var(--mono);font-weight:900;font-size:clamp(28px,3.4vw,54px);letter-spacing:-.05em;line-height:1}
+.stat .l{font-size:12px;color:var(--dim);margin-top:.9em;line-height:1.5}
+
+/* timeline (roadmap: 4개 동일 카드 + 하단 한 줄 라인) */
+.tl-wrap{margin-top:clamp(40px,7vh,80px)}
+.tl-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,28px)}
+.tl-card{background:rgba(238,243,239,.05);padding:clamp(18px,1.9vw,28px);
+  opacity:0;transform:translateY(16px);transition:opacity .6s ease var(--td,0s),transform .6s cubic-bezier(.16,1,.3,1) var(--td,0s)}
+.tl-wrap.in .tl-card{opacity:1;transform:none}
+.tl-cards .tl-card:nth-child(1){--td:0s}.tl-cards .tl-card:nth-child(2){--td:.1s}
+.tl-cards .tl-card:nth-child(3){--td:.2s}.tl-cards .tl-card:nth-child(4){--td:.3s}
+.tl-y{font-family:var(--sans);font-weight:600;font-size:clamp(14px,1.1vw,18px);color:rgba(238,243,239,.6);
+  letter-spacing:-.02em;margin-bottom:.6em}
+.tl-card p{font-size:clamp(12.5px,.95vw,15px);line-height:1.55;color:#eef3ef;font-weight:500}
+.tl-line{margin-top:clamp(20px,4vh,40px);height:1px;background:rgba(238,243,239,.15);
+  display:grid;grid-template-columns:repeat(4,1fr)}
+.tl-dot{width:9px;height:9px;border-radius:50%;background:var(--neon);justify-self:center;transform:translateY(-50%)}
+@media(max-width:860px){
+  .tl-cards{grid-template-columns:1fr}
+  .tl-line{display:none}
+}
+
+/* partners */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.6vw,36px);margin-top:clamp(20px,4vh,40px)}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
+.two-tiers{margin-top:clamp(10px,2vh,20px)}
+.box{border:1px solid var(--line);padding:clamp(18px,2vw,32px)}
+.box.solid{background:var(--neon);color:var(--navy);border-color:var(--neon)}
+.box.solid .lab{color:rgba(9,28,63,.6)}
+.box.solid li{border-color:rgba(9,28,63,.2)}
+.box .lab{font-family:var(--mono);font-size:11px;letter-spacing:.09em;color:var(--dim)}
+.box h4{font-size:clamp(18px,1.9vw,26px);font-weight:700;letter-spacing:-.03em;margin:.3em 0 .55em}
+.box ul{list-style:none;display:flex;flex-direction:column}
+.box li{border-top:1px solid var(--line);padding:.6em 0;font-size:13.5px;line-height:1.5;font-weight:400}
+.box-sm{padding:clamp(14px,1.4vw,22px)}
+.box-sm h4{font-size:clamp(14px,1.15vw,18px);margin:.3em 0 .4em;line-height:1.3}
+.box-sm .lab{font-size:10px}
+.box-sm ul{gap:0}
+.box-sm li{font-size:11.5px;line-height:1.45;padding:.5em 0}
+.box-sm .body{font-size:12px;line-height:1.45}
+
+/* WHO'S NEXT (1920x1080 고정 캔버스, 실사진) */
+.whonext-screen{height:100svh;position:relative;overflow:hidden;scroll-snap-align:start;scroll-snap-stop:always}
+.wn-bg{position:absolute;left:-68px;top:-41px;width:2046px;height:1150px;object-fit:cover;opacity:.6;pointer-events:none}
+.wn-logo{position:absolute;left:50%;top:260px;transform:translateX(-50%);width:1780px;height:auto;
+  opacity:.55;pointer-events:none}
+.wn-p{position:absolute;overflow:hidden;opacity:0;transform:translateX(-60px);
+  transition:opacity .8s cubic-bezier(.16,1,.3,1) calc(var(--wi) * .14s),transform .8s cubic-bezier(.16,1,.3,1) calc(var(--wi) * .14s)}
+.whonext-screen.on .wn-p,.whonext-screen.on .reveal-wi{opacity:1;transform:none}
+.wn-p img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.wn-nm,.wn-role,.wn-next-label{position:absolute;z-index:20;transform:translate(-50%,0) translateX(-60px);
+  width:230px;text-align:center;opacity:0;
+  transition:opacity .8s cubic-bezier(.16,1,.3,1) calc(var(--wi) * .14s),transform .8s cubic-bezier(.16,1,.3,1) calc(var(--wi) * .14s)}
+.whonext-screen.on .wn-nm,.whonext-screen.on .wn-role,.whonext-screen.on .wn-next-label{transform:translate(-50%,0)}
+.wn-nm{font-family:'Pretendard Variable',sans-serif;font-weight:900;color:var(--neon);
+  font-size:42px;letter-spacing:-.03em}
+.wn-role{font-family:'Pretendard Variable',sans-serif;font-weight:500;color:#fff;
+  font-size:22px;line-height:1.35}
+.wn-next-label{font-family:var(--mono);font-weight:400;color:var(--neon);
+  font-size:26px;line-height:1.1;letter-spacing:-.02em}
+.wn-badge{position:absolute;left:50%;top:96px;transform:translateX(-50%);z-index:5;background:var(--neon);
+  color:#171917;font-family:'Pretendard Variable',sans-serif;font-weight:800;font-size:38px;
+  letter-spacing:-.03em;padding:.42em 1em;text-align:center;white-space:nowrap}
+@media(max-width:900px){
+  .wn-badge{white-space:normal;font-size:20px;max-width:88vw}
+}
+
+/* island */
+.island{min-height:100svh;display:flex;flex-direction:row;justify-content:flex-start;align-items:center;
+  background:linear-gradient(180deg,rgba(5,15,36,.35),rgba(5,15,36,.92)),url("assets/island-bg.png") center/cover no-repeat}
+.island-feats{list-style:none;display:flex;gap:clamp(18px,3vw,44px);flex-wrap:wrap;margin-top:1.4em}
+.island-feats li{border-top:1px solid var(--line);padding-top:.75em;min-width:220px}
+.island-feats li b{display:block;font-size:16px;font-weight:700;letter-spacing:-.02em;margin-bottom:.4em;color:#fff}
+.island-feats li span{font-size:13.5px;line-height:1.55;color:rgba(243,255,72,.75);font-weight:400}
+
+/* outro */
+.outro{height:100svh;position:relative;overflow:hidden;background:#000;display:flex;flex-direction:column;justify-content:flex-end;
+  scroll-snap-align:start;scroll-snap-stop:always}
+.outro .stars{position:absolute;top:0;left:0;right:0;height:56%;background:url("assets/hero-stars.png") center/cover no-repeat}
+.outro .cut{position:absolute;top:0;left:0;width:100%;height:56%}
+.outro .cut svg{width:100%;height:100%}
+.outro .globe{position:absolute;left:50%;bottom:0;width:120%;height:52%;transform:translateX(-50%);
+  background:url("assets/hero-globe.png") center top/cover no-repeat}
+.outro .foot{position:relative;z-index:2;padding:var(--pad);display:flex;justify-content:space-between;align-items:flex-end;
+  gap:24px;flex-wrap:wrap;background:linear-gradient(180deg,transparent,rgba(5,15,36,.9) 45%)}
+.outro .foot a{color:var(--neon);text-decoration:none;border-bottom:1px solid var(--line)}
+.outro .foot a:hover{border-color:var(--neon)}
+.outro .who{text-align:right;font-size:clamp(15px,1.4vw,20px);line-height:1.8}
+.outro .who .nm{font-size:clamp(26px,3vw,44px);font-weight:700;letter-spacing:-.04em;line-height:1.1;margin-bottom:.3em}
+.outro .by{font-family:var(--mono);font-size:11px;letter-spacing:.08em}
+
+:focus-visible{outline:2px solid var(--neon);outline-offset:3px}
+
+/* ================= 하단 내비게이션 (원래 버전 유지) ================= */
+.dock{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9600;display:flex;
+  align-items:stretch;gap:10px;max-width:calc(100vw - 20px)}
+#nav{display:flex;background:rgba(2,8,20,.88);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.14);
+  border-radius:3px;overflow:hidden;overflow-x:auto;flex:1 1 auto;min-width:0}
+#nav a{display:block;padding:11px 16px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  color:#9fb0c6;white-space:nowrap;transition:background .25s,color .25s;text-decoration:none}
+#nav a.on{background:#fff;color:var(--navy)}
+#nav a.cta{background:var(--neon);color:var(--navy);font-weight:700}
+#nav a:hover{color:#fff}
+#nav a.on:hover,#nav a.cta:hover{color:var(--navy)}
+#langbar{display:flex;flex:none;background:rgba(2,8,20,.88);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.14);border-radius:3px;overflow:hidden}
+#langbar button{all:unset;box-sizing:border-box;display:block;padding:11px 13px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.06em;color:#9fb0c6;white-space:nowrap;cursor:pointer;transition:background .25s,color .25s}
+#langbar button.on{background:#fff;color:var(--navy)}
+#langbar button:hover{color:#fff}
+#langbar button.on:hover{color:var(--navy)}
+@media(max-width:640px){#nav a{padding:10px 12px;font-size:10px}#langbar button{padding:10px 11px;font-size:10px}}
+
+@media(prefers-reduced-motion:reduce){
+  .scrollcue{animation:none}
+  .rise-in,.fade,.fx-o,.fx-up,.fx-swipe-l,.fx-swipe-r,.fx-scale107,.fx-bar,.fx-age{transition:none!important}
+  .on .rise-in{transform:none}.on .fade{opacity:1;transform:none}
+  .panel.active .fx-o,.panel.active .fx-up{opacity:1;transform:none}
+  .panel.active .fx-swipe-l,.panel.active .fx-swipe-r,.panel.active .fx-scale107{transform:none}
+  .kshape{animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"><i data-bar="0"></i><i data-bar="1"></i><i data-bar="2"></i><i data-bar="3"></i></div>
+
+<header class="hud">
+  <b>판 PAN</b>
+  <span class="mid" data-i18n="hud.sub">거리에서 만나는 미래, 국내 최초 스트리트 AI 페스티벌</span>
+  <span>Pacific AI Nexus</span>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="hero">
+  <div style="position:absolute;inset:0;background-image:url('assets/hero-stars.png');background-size:cover;background-position:center top"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;top:calc(424/1920*100vw);background:#f3ff48"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;top:calc(437/1920*100vw);overflow:hidden">
+    <div id="heroGlobe" style="width:100%;height:100%;transform-origin:50% 15%;will-change:transform">
+      <img src="assets/hero-globe.png" alt="" style="position:absolute;left:0;top:-.02%;width:100%;height:168.31%;object-fit:cover;pointer-events:none">
+    </div>
+  </div>
+  <div id="heroPan" style="position:absolute;top:0;left:0;right:0;height:calc(424/1920*100vw);opacity:0;transform:translateY(32px);
+      transition:opacity 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1);will-change:opacity,transform">
+    <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 1920 452" fill="none">
+      <path d="M1920 452H0V0H1920V452ZM309.367 32.3848C218.252 32.3855 122.075 31.3029 31.6055 32.5908L31.3818 122.611C69.8734 123.596 112.806 122.89 151.639 122.928L381.676 123.054L457.622 122.958C467.641 122.946 478.827 123.116 488.723 122.984C564.091 121.977 596.406 179.608 542.608 210.343C517.818 224.506 487.235 221.841 455.784 221.856L157.828 221.839C116.769 221.834 72.3055 221.326 31.5195 222.225C31.5554 283.736 32.6426 346.683 31.3916 408.061L194.534 408.123C194.977 375.985 195.09 343.845 194.875 311.705C254.58 313.323 328.813 312.093 389.052 312.039L470.654 311.991C502.481 311.964 528.173 312.464 560.175 308.417C573.452 306.738 585.971 304.44 597.731 301.598L544.257 358.702C535.225 368.336 504.051 399.594 498.492 408.6C556.719 409.295 615.414 408.389 673.631 408.777C730.375 347.968 785.544 282.472 840.23 220.72C858.707 200.003 876.926 179.198 894.881 158.307C901.47 150.714 916.168 135.486 919.642 128.042C929.916 138.714 939.519 149.631 948.426 160.768C998.597 218.198 1049.34 275.436 1100.64 332.479C1121.74 356.193 1142.64 380.275 1163.83 403.98C1165.1 405.401 1167.81 408.241 1170.06 408.391C1173.54 408.622 1178.91 408.751 1185.06 408.822C1185.06 408.847 1185.06 408.872 1185.06 408.896L1195.32 408.891C1198.93 408.899 1202.6 408.895 1206.13 408.885L1340.19 408.816C1341.83 328.286 1340.79 245.175 1340.3 164.494C1366.16 183.073 1395.87 201.499 1423.07 219.479L1549.35 304.186L1639.06 364.641L1668.27 384.437C1709.64 412.817 1717.56 408.968 1775.9 408.896L1866.68 408.796C1870.69 408.775 1870.98 409.232 1873.12 407.941C1874.72 397.973 1873.55 378.736 1873.54 367.938V32.9932C1823.22 33.1553 1768.11 32.406 1718.22 33.2969L1718.31 200.91C1718.36 224.397 1716.95 253.075 1718.48 276.065L1718.11 275.892C1712.31 273.142 1707.59 269.612 1702.69 266.279C1687.91 256.23 1672.75 246.399 1658.01 236.328L1424.11 74.0732C1400.91 57.7095 1372.02 32.8136 1333.85 33.1592C1287.16 33.5819 1236.92 31.9633 1190.51 33.3877L1186.27 33.7393C1183.93 35.877 1185.11 92.9863 1185.1 100.206L1185.06 232.793L1073.11 110.72C1050.22 85.5952 1025.66 57.692 1002.15 33.0693C951.433 32.9299 897.782 32.4605 847.29 33.1709C840.704 38.1164 829.857 50.3353 824.222 56.3516C810.185 71.326 796.314 86.3596 782.609 101.452L732.639 155.831C723.639 100.202 665.848 48.1005 558.691 35.5947C519.57 31.0294 485.943 32.3374 445.842 32.3477L309.367 32.3848Z" fill="#F3FF48"/>
+    </svg>
+  </div>
+  <div style="position:absolute;left:0;right:0;top:calc(455/1920*100vw);display:flex;align-items:center;justify-content:space-between;
+      padding:0 calc(61/1920*100vw);gap:2vw">
+    <p class="i18n-wrap" style="margin:0;white-space:nowrap;--i18nmax:34vw;font-family:'Pretendard Variable:SemiBold',sans-serif;font-weight:600;
+       font-size:clamp(11px,1.5625vw,30px);color:#f3ff48;letter-spacing:.05em;text-transform:uppercase;line-height:1.3"
+       data-i18n="hud.sub">거리에서 만나는 미래, 국내 최초 스트리트 AI 페스티벌</p>
+    <p style="margin:0;white-space:nowrap;font-family:'Pretendard Variable:Bold',sans-serif;font-weight:700;
+       font-size:clamp(11px,1.5625vw,30px);color:#f3ff48;letter-spacing:.05em;text-transform:uppercase;line-height:1.3">판 pAN</p>
+    <p style="margin:0;white-space:nowrap;font-family:'Lexend Zetta:Regular',sans-serif;font-weight:400;
+       font-size:clamp(11px,1.5625vw,30px);color:#f3ff48;letter-spacing:-.05em;text-transform:uppercase;line-height:1.3">Pacific AI Nexus</p>
+  </div>
+  <div class="scrollcue" data-i18n="ui.scroll">SCROLL</div>
+</section>
+
+<!-- ============ INTRO ============ -->
+<section class="intro-screen" style="height:100svh;position:relative;overflow:hidden;scroll-snap-align:start;scroll-snap-stop:always">
+  <div class="scaled" data-scaled>
+    <div class="scaled-inner">
+      <div class="figpanel">
+        <video autoplay muted loop playsinline preload="auto" poster="assets/intro-bg.png"
+               style="position:absolute;left:-122px;top:-201px;width:2162px;height:1215px;object-fit:cover;pointer-events:none">
+          <source src="assets/earth.mp4" type="video/mp4">
+        </video>
+        <div style="position:absolute;left:50%;top:445px;transform:translateX(-50%);width:1956px;height:656px;
+             background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,.7) 75.962%)"></div>
+        <div style="position:absolute;left:calc(50% + 1px);top:0;transform:translateX(-50%);width:1956px;height:339px;
+             background:linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,.7) 75.962%)"></div>
+        <div class="i-note i18n-wrap" style="--i18nmax:1750px" data-i18n="intro.note">*세부 일자는 추후 변경될 수 있습니다.</div>
+        <div class="i-headline i18n-wrap" style="--i18nmax:1850px" data-i18n="intro.headline">세계의 미래가, 한국으로 향합니다</div>
+        <div class="i-date">2026. 11. 23-27.</div>
+        <div class="i-bottom i18n-wrap" style="--i18nmax:1850px" data-i18n="intro.bottom" data-i18n-html="1">
+          흩어져 있던 미래를 성수의 한 거리에 모으는 국내 최초의 스트리트 AI 페스티벌을 열겠습니다.
+          <b>궁극적으로, 아시아·태평양 전역의 창업자와 크리에이터, 빅테크가 매년 모이는 독립 IP로 키우겠습니다.</b>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY STACK (4 panels, scroll crossfade) ============ -->
+<div class="stack-wrapper" id="stackWrapper">
+  <div class="stack-sticky">
+    <div class="panel-dots" aria-hidden="true">
+      <div class="panel-dot active" data-dot="0"></div>
+      <div class="panel-dot" data-dot="1"></div>
+      <div class="panel-dot" data-dot="2"></div>
+      <div class="panel-dot" data-dot="3"></div>
+    </div>
+
+    <!-- panel 0: WHY STREET (2049) -->
+    <div class="panel active" data-panel="0">
+      <div class="scaled"><div class="scaled-inner"><div class="figpanel" style="background:#090f0b">
+        <div class="fx-scale107" style="position:absolute;left:-1px;top:0;width:1921px;height:1081.14px">
+          <img src="assets/why-street-bg.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+        </div>
+        <div style="position:absolute;left:50%;top:445px;transform:translateX(-50%);width:1956px;height:656px;
+             background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,.7) 56.25%)"></div>
+        <div style="position:absolute;left:calc(50% + 18px);top:0;transform:translateX(-50%);width:1956px;height:339px;
+             background:linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,.7) 75.962%)"></div>
+        <div class="fx-up i18n-wrap" style="--i18nmax:1300px;--delay:220ms;--dur:1s;position:absolute;left:calc(50% + 877px);top:197px;transform:translate(-100%,-50%);
+             text-align:right;white-space:nowrap;font-family:'Pretendard Variable',sans-serif;font-weight:900;color:#f3ff48;
+             font-size:83.04px;letter-spacing:-1.6608px;line-height:1.25" data-i18n="why.street.headline" data-i18n-html="1">
+          <p style="margin:0">2049년의 미래가</p>
+          <p class="fx-swipe-r" style="margin:0;display:inline-block;background:#f3ff48;color:#01244b;letter-spacing:-.32px;padding:0 .05em;box-decoration-break:clone;-webkit-box-decoration-break:clone">단 하나의 거리에 모입니다</p>
+        </div>
+        <div class="fx-up i18n-wrap" style="--i18nmax:1650px;--delay:460ms;position:absolute;left:81px;top:946px;transform:translateY(-50%);white-space:nowrap;
+             font-family:'Pretendard Variable',sans-serif;font-weight:500;color:#fff;font-size:29px;letter-spacing:-.87px;line-height:1.5"
+             data-i18n="why.street.body" data-i18n-html="1">
+          <p style="margin:0">AI가 작곡한 음악이 거리에 흐르고, 스크린에는 AI가 만든 영화가 상영됩니다. </p>
+          <p style="margin:0">빌더들은 자기 제품을 자유롭게 시연하고, 미래도시의 모습을 팝업으로 먼저 만납니다.</p>
+          <p style="margin:0;font-weight:800;color:#f3ff48">AI의 다음 대중화는 컨퍼런스홀이 아니라 거리에서 시작됩니다.</p>
+        </div>
+      </div></div></div>
+    </div>
+
+    <!-- panel 1: WHY KOREA -->
+    <div class="panel" data-panel="1">
+      <div class="scaled"><div class="scaled-inner"><div class="figpanel" style="background:#090f0b">
+        <div class="fx-o" style="--dur:1.2s;position:absolute;left:-68px;top:-41px;width:2046px;height:1150px">
+          <img src="assets/why-korea-tex.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6;pointer-events:none">
+        </div>
+        <div class="fx-o" style="--dur:1.2s;--delay:80ms;position:absolute;left:-144px;top:-139px;width:2221px;height:1240px">
+          <img src="assets/why-korea-bg.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+        </div>
+        <div style="position:absolute;left:calc(50% - 433.5px);top:-5px;width:1053px;height:1091px;
+             background:linear-gradient(to left, rgba(0,0,0,0) 0%, rgba(0,0,0,.7) 75.962%)"></div>
+        <div class="fx-swipe-l" style="--delay:150ms;position:absolute;left:71px;top:99.18px;width:428.744px;height:54.3px;background:#f3ff48"></div>
+        <div class="fx-up i18n-wrap" style="--i18nmax:1700px;--delay:260ms;--dur:1s;position:absolute;left:calc(50% - 889px);top:89px;white-space:nowrap;
+             font-family:'Pretendard Variable',sans-serif;font-weight:900;color:#fff;letter-spacing:-2.3756px;line-height:1.4">
+          <p style="margin:0;font-family:'Lexend Zetta:Regular',sans-serif;font-weight:400;color:#0d0d0d;font-size:49.775px">WHY KOREA</p>
+          <p style="margin:0;font-size:72.4px" data-i18n="why.korea.title">이제 AI도 강력한 문화입니다</p>
+        </div>
+        <div class="fx-up i18n-wrap" style="--i18nmax:1650px;--delay:420ms;position:absolute;left:71px;top:509px;white-space:nowrap;
+             font-family:'Pretendard Variable',sans-serif;font-weight:500;color:#fff;letter-spacing:-.81px;font-size:27px;line-height:1.5"
+             data-i18n="why.korea.body" data-i18n-html="1">
+          <p style="margin:0">미국이 열면 오지 않는 나라가 있고,<br>중국이 열면 오지 않는 나라가 있습니다.</p>
+          <p style="margin:0;font-weight:700;color:#f3ff48">하지만 서울은 다릅니다.</p>
+          <p style="margin:0">&nbsp;</p>
+          <p style="margin:0">미국·중국·일본·싱가포르·베트남의 기술과 인재가 </p>
+          <p style="margin:0">한 도시, 한 거리에서 만날 수 있습니다.</p>
+          <p style="margin:0">&nbsp;</p>
+          <p style="margin:0">한국은 이미 음악·영화·패션으로 문화를 세계에 연결해온 나라입니다.</p>
+          <p style="margin:0;font-weight:700;color:#f3ff48">기술과 문화, 크리에이터와 관객이 같은 거리에서 만나는 연결의 장.</p>
+          <p style="margin:0;font-weight:700;color:#f3ff48">한국이 가장 잘 할 수 있는 일입니다. </p>
+        </div>
+        <div class="fx-o kshape" style="--delay:300ms;--dur:1.4s;position:absolute;left:899.62px;top:-36.18px;width:1275.556px;height:1384.61px;
+             display:flex;align-items:center;justify-content:center;mix-blend-mode:difference">
+          <div style="transform:rotate(-5.48deg);width:1158.567px;height:1279.757px">
+            <svg width="1158.57" height="1279.76" viewBox="0 0 1158.57 1279.76" fill="none">
+              <path d="M698.049 607.885L1158.57 1279.76H711.622L375.201 741.677V1279.76H0V644.689C88.5991 489.056 216.58 353.611 375.201 247.04V480.878L601.044 124.132C749.325 59.9676 915.044 17.0713 1093.61 0H1101.37L698.049 607.885Z" fill="url(#kgrad)" fill-opacity="0.9"/>
+              <defs><linearGradient id="kgrad" x1="-129.232" x2="1091.96" y1="811.706" y2="811.706" gradientUnits="userSpaceOnUse">
+                <stop offset="0.663462" stop-color="#F3FF48"/><stop offset="1" stop-color="#999999"/>
+              </linearGradient></defs>
+            </svg>
+          </div>
+        </div>
+      </div></div></div>
+    </div>
+
+    <!-- panel 2: WHY 2026 -->
+    <div class="panel" data-panel="2">
+      <div class="scaled"><div class="scaled-inner"><div class="figpanel" style="background:#090f0b">
+        <div class="fx-o" style="--dur:1.2s;position:absolute;left:-68px;top:-41px;width:2046px;height:1150px">
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt=""
+               style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6;pointer-events:none">
+        </div>
+        <div style="position:absolute;left:calc(50% + 1px);top:0;transform:translateX(-50%);width:1956px;height:656px;
+             background:linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,.5) 75.962%)"></div>
+        <div class="fx-up i18n-wrap" style="--i18nmax:1650px;--delay:400ms;position:absolute;left:61px;top:93px;white-space:nowrap;
+             font-family:'Pretendard Variable',sans-serif;font-weight:500;color:#fff;letter-spacing:-.81px;font-size:27px;line-height:1.5"
+             data-i18n="why.2026.body" data-i18n-html="1">
+          <p style="margin:0">AI를 둘러싼 변화는 이미 시작됐습니다.<br>이미 젠슨 황을 비롯한 글로벌 빅테크와 AI 리더들이 한국을 찾고 있습니다.</p>
+          <p style="margin:0">그러나 이 관심은 기업 별로, 행사마다 흩어져 있습니다.<br><br></p>
+          <p style="margin:0">이제 필요한 것은 흩어져 있는 이 관심과 에너지를</p>
+          <p style="margin:0;font-weight:700;color:#f3ff48">매년 세계가 대한민국을 찾게 만드는 하나의 거대한 흐름으로 응집하는 일입니다.</p>
+        </div>
+        <div class="fx-swipe-r" style="--delay:80ms;position:absolute;left:1532.75px;top:100.52px;width:319.251px;height:51.596px;background:#f3ff48"></div>
+        <div class="fx-up i18n-wrap" style="--i18nmax:1650px;--delay:200ms;--dur:1s;position:absolute;left:calc(50% + 892px);top:93px;transform:translateX(-100%);
+             text-align:right;white-space:nowrap;font-family:'Pretendard Variable',sans-serif;font-weight:900;color:#fff;
+             letter-spacing:-2.0638px;line-height:1.4">
+          <p style="margin:0;font-family:'Lexend Zetta:Regular',sans-serif;font-weight:400;color:#0b0c0b;font-size:47.296px">WHY 2026</p>
+          <p style="margin:0;font-size:68.795px" data-i18n="why.2026.title">바로 올해가 변곡점입니다</p>
+        </div>
+        <div class="fx-o" style="--delay:200ms;--dur:1.2s;position:absolute;left:-40px;top:358px;width:1920px;height:722px">
+          <img src="assets/why2026-numeral.png" alt="2026" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none">
+        </div>
+        <div class="fx-o" style="--delay:150ms;--dur:1.1s;position:absolute;left:27px;top:361px;width:1165px;height:719px">
+          <img src="assets/why2026-jensen.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none">
+        </div>
+      </div></div></div>
+    </div>
+
+    <!-- panel 3: WHY PAN (세대) -->
+    <div class="panel" data-panel="3">
+      <div class="scaled"><div class="scaled-inner"><div class="figpanel" style="background:#090f0b">
+        <div class="fx-o" style="--dur:1.2s;position:absolute;left:-68px;top:-41px;width:2046px;height:1150px">
+          <img src="assets/why-gen-tex.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6;pointer-events:none">
+        </div>
+        <div style="position:absolute;left:calc(50% + 1px);top:0;transform:translateX(-50%);width:1956px;height:656px;
+             background:linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,.5) 75.962%)"></div>
+        <div class="fx-swipe-l" style="--delay:80ms;position:absolute;left:85px;top:108px;width:291px;height:48px;background:#f3ff48"></div>
+        <div class="fx-up i18n-wrap" style="--i18nmax:1650px;--delay:200ms;--dur:1s;position:absolute;left:calc(50% - 875px);top:101px;white-space:nowrap;
+             font-family:'Pretendard Variable',sans-serif;font-weight:900;color:#fff;letter-spacing:-1.92px" data-i18n="why.pan.title" data-i18n-html="1">
+          <p style="margin:0;font-family:'Lexend Zetta:Regular',sans-serif;font-weight:400;color:#0c0d0c;font-size:44px">WHY PAN</p>
+          <p style="margin:0;line-height:1.25;font-size:64px">10세부터 90세까지</p>
+          <p style="margin:0;line-height:1.25;font-size:64px">전 세대의 축제를 만듭니다</p>
+        </div>
+        <div class="fx-up i18n-wrap" style="--i18nmax:1650px;--delay:380ms;position:absolute;left:1871px;top:111px;transform:translateX(-100%);text-align:right;
+             white-space:nowrap;font-family:'Pretendard Variable',sans-serif;font-weight:500;color:#fff;letter-spacing:-.81px;font-size:27px;line-height:1.5"
+             data-i18n="why.pan.body" data-i18n-html="1">
+          <p style="margin:0;font-weight:700;color:#f3ff48">CEO들만의 폐쇄적인 컨퍼런스의 시대는 끝났습니다.</p>
+          <p style="margin:0;font-weight:700;color:#f3ff48">뉴스와 매거진으로만 접하는 AI 정보는 와닿지 않고 휘발될 뿐입니다.</p>
+          <p style="margin:0">&nbsp;</p>
+          <p style="margin:0">PAN은 따분하고 일방적인 양식을 과감히 지웠습니다. </p>
+          <p style="margin:0">거리를 지나는 누구나 AI를 직접 사용하고, 접하고, 느낍니다.</p>
+          <p style="margin:0">축제가 끝난 뒤 모든 세대에는 AI를 직접 써봤다는 경험, 그리고 배워보고 싶다는 마음이 남을 것입니다.</p>
+        </div>
+        <div style="position:absolute;left:-135px;top:618px">
+          <div class="fx-age" style="--delay:.3s;position:absolute;left:-92.39px;top:0;width:615.272px;height:490.378px">
+            <img src="assets/gen-photo-1.png" alt="" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <div class="fx-age" style="--delay:.38s;position:absolute;left:392.52px;top:0;width:615.272px;height:490.378px">
+            <img src="assets/gen-photo-2.png" alt="" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <div class="fx-age" style="--delay:.46s;position:absolute;left:877.43px;top:0;width:615.272px;height:490.378px">
+            <img src="assets/gen-photo-3.png" alt="" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <div class="fx-age" style="--delay:.54s;position:absolute;left:1362.35px;top:0;width:615.272px;height:490.378px">
+            <img src="assets/gen-photo-4.png" alt="" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <div class="fx-o" style="--delay:.6s;position:absolute;left:0;top:332.74px;width:2023.853px;height:158.256px">
+            <img src="assets/gen-strip.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+          </div>
+        </div>
+        <div style="position:absolute;left:50%;top:618px;transform:translateX(-50%);width:1920px;height:211px;
+             background:linear-gradient(180deg, #0d0f0e 0%, rgba(13,15,14,0) 100%)"></div>
+        <div class="genwrap fx-o" style="--delay:500ms;position:absolute;left:0;top:500px;width:1920px;height:220px;overflow:hidden">
+          <div class="genmarquee" id="genMarquee">
+            <span class="gennum" style="--i:0">10</span><span class="gennum" style="--i:1">20</span>
+            <span class="gennum" style="--i:2">30</span><span class="gennum" style="--i:3">40</span>
+            <span class="gennum" style="--i:4">50</span><span class="gennum" style="--i:5">60</span>
+            <span class="gennum" style="--i:6">70</span><span class="gennum" style="--i:7">80</span>
+            <span class="gennum" style="--i:8">90</span>
+            <span class="gennum" style="--i:0" aria-hidden="true">10</span><span class="gennum" style="--i:1" aria-hidden="true">20</span>
+            <span class="gennum" style="--i:2" aria-hidden="true">30</span><span class="gennum" style="--i:3" aria-hidden="true">40</span>
+            <span class="gennum" style="--i:4" aria-hidden="true">50</span><span class="gennum" style="--i:5" aria-hidden="true">60</span>
+            <span class="gennum" style="--i:6" aria-hidden="true">70</span><span class="gennum" style="--i:7" aria-hidden="true">80</span>
+            <span class="gennum" style="--i:8" aria-hidden="true">90</span>
+          </div>
+        </div>
+      </div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SEONGSU (성수 거리 소개) ============ -->
+<section class="pad seongsu-intro reveal" id="seongsu" data-reveal>
+  <img src="assets/seongsu-street.png" alt="" class="seongsu-bg">
+  <div class="seongsu-fade"></div>
+  <div class="seongsu-top">
+    <div class="seongsu-head">
+      <h3><span class="rise-wrap"><span class="rise-in" data-i18n="seongsu.line1">크리에이터들의 고향,</span></span></h3>
+      <h2 style="margin-top:.15em">
+        <span class="rise-wrap"><span class="rise-in" style="--rd:70ms" data-i18n="seongsu.line2">성수 거리가 그 무대입니다</span></span>
+      </h2>
+      <div class="fade" style="--fd:220ms"><div class="note" style="margin-top:.5em" data-i18n="ui.tbd">*협의 추진 중</div></div>
+    </div>
+    <div class="fade seongsu-body" style="--fd:150ms">
+      <p class="body" data-i18n="seongsu.body" data-i18n-html="1">기술과 문화, 브랜드와 크리에이터가 가장 밀도 높게 만나는 서울의 심장입니다.<br>
+      성수의 메인 거리에 생기는 3가지의 ZONE을 바탕으로<br>
+      도시 전체에 AI가 깊숙히 스며들어 동화됩니다.</p>
+    </div>
+  </div>
+  <img src="assets/seongsu-word.png" alt="SEONGSU" class="seongsu-word">
+</section>
+
+<!-- ============ ZONES (horizontal pin) ============ -->
+<section class="hpin tall" id="zones">
+  <div class="vp">
+    <div class="track" id="zoneTrack">
+
+      <article class="zone">
+        <span class="z-n" aria-hidden="true">1</span>
+        <span class="z-space">MAIN SPACE 1</span>
+        <h4>BUILDER ZONE</h4>
+        <div class="place" data-i18n="zone1.place">블루엘리펀트 스페이스 성수</div>
+        <ul>
+          <li><b>Vibe Coding Live</b><span data-i18n="zone1.li1">참가자들이 현장에서 AI 코딩 툴로 실시간 서비스를 제작하며, 그 과정이 초대형 사이니지를 통해 거리를 지나는 모두에게 생중계됩니다.</span></li>
+          <li><b>Builder's Demo Day</b><span data-i18n="zone1.li2">이미 출시됐거나 베타 단계인 국내외 AI 서비스가 실제 사용자를 만나고, 투자자·액셀러레이터 앞에서 데모 피칭을 진행합니다. 관람객 투표로 '거리의 선택'을 뽑습니다.</span></li>
+          <li><b>Mentor Table</b><span data-i18n="zone1.li3">현업 개발자·창업가가 상주하며 즉석 코드 리뷰와 제품 피드백을 제공합니다.</span></li>
+        </ul>
+      </article>
+
+      <article class="zone">
+        <span class="z-n" aria-hidden="true">2</span>
+        <span class="z-space">MAIN SPACE 2</span>
+        <h4>ART ZONE</h4>
+        <div class="place" data-i18n="zone2.place">성수 아트홀</div>
+        <ul>
+          <li><b>AI Film Screening</b><span data-i18n="zone2.li1">국내외 AI 크리에이터들의 단편 필름이 매일 다른 섹션으로 상영됩니다. 오프닝 갈라, 신진 크리에이터 쇼케이스, 해외 초청작 특별전.</span></li>
+          <li><b>CINEMAI Awards</b><span data-i18n="zone2.li2">국내외 거장과 업계 심사위원단이 참여하는 시상식으로, AI 시네마틱·AI 비주얼 아트 등 부문별 수상작을 발표합니다.</span></li>
+          <li><b>Private GV</b><span data-i18n="zone2.li3">감독과의 대화, 제작 과정 공개 세션으로 "어떻게 만들었는지"까지 경험하게 합니다.</span></li>
+        </ul>
+      </article>
+
+      <article class="zone">
+        <span class="z-n" aria-hidden="true">3</span>
+        <span class="z-space">MAIN SPACE 3</span>
+        <h4>ROBOT ZONE</h4>
+        <div class="place" data-i18n="zone3.place">그로브1219</div>
+        <p class="zone-intro" data-i18n="zone3.intro">피지컬 AI와 인간이 함께 펼치는 새로운 형태의 이벤트. 직접 참여하고, 경쟁하고, 즐기는 AI 올림픽이 시작됩니다.</p>
+        <ul>
+          <li><b>AI Opening Ceremony</b><span data-i18n="zone3.li1">각기 다른 AI 로봇들이 자신만의 방식으로 경기장에 등장하며 AI 로봇 올림픽의 시작을 알립니다. 퍼포먼스와 팀 소개를 통해 국제 스포츠 대회와 같은 분위기를 연출합니다.</span></li>
+          <li><b>AI Robot Olympics</b><span data-i18n="zone3.li2">국내외 AI 로봇들이 한자리에 모여 실제 올림픽처럼 다양한 종목에서 경쟁합니다. 로봇의 신체 능력과 정교한 움직임을 겨루며, 관람객은 경기장 가까이에서 AI 로봇들의 치열한 승부를 지켜볼 수 있습니다.</span></li>
+          <li><b>Robot Showcase</b><span data-i18n="zone3.li3">각기 다른 종류의 피지컬 AI 로봇들이 한 공간 안에 펼쳐집니다. 건물 안부터 거리 밖까지 각 국가들의 대표 로봇을 체험합니다. 배치된 로봇들이 안내, 서빙, 퍼포먼스 등 실제 작동하는 모습을 가까이서 지켜보세요.</span></li>
+        </ul>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ PEOPLE ============ -->
+<section class="pad reveal" id="with" data-reveal>
+  <h2><span class="rise-wrap"><span class="rise-in" data-i18n="with.title1">이미 판은 벌려봤습니다</span></span></h2>
+  <div class="people people-roomy">
+    <div class="fade" style="--fd:0ms">
+      <div class="person">
+        <div class="nm">최동인</div>
+        <div class="role" data-i18n="with.p1.role">THE HACK · 흑백개발자</div>
+        <p data-i18n="with.p1.bio">한국 최고의 창업가 80여 명이 7일간 참여한 THE해커톤의 총괄 리드입니다. 이로 2.2만의 팔로워, 누적 조회수 1,980만 뷰를 이끌었습니다.</p>
+      </div>
+    </div>
+    <div class="fade" style="--fd:120ms">
+      <div class="person">
+        <div class="nm">김인기</div>
+        <div class="role">ROCKETPUNCH</div>
+        <p data-i18n="with.p2.bio">62만 명 이상의 회원, 20만 이상의 기업 프로필, 연 순방문자 370만 명을 보유한 로켓펀치의 대표입니다. 한국 경제활동인구 7명 중 1명이 방문한 커리어 플랫폼입니다.</p>
+      </div>
+    </div>
+    <div class="fade" style="--fd:240ms">
+      <div class="person">
+        <div class="nm">한원준</div>
+        <div class="role">BLOOM · CLIWANT</div>
+        <p data-i18n="with.p3.bio">17,000명 이상이 참여한 Bloom 공동 주최이자, 2,000명 이상이 신청한 Anthropic 지원 밋업 공동 주최입니다. Singtel 후원을 받으며 서울에서 싱가포르로 확장했습니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats" id="stats">
+    <div class="stat"><div class="n" data-to="22949">0</div><div class="l">@thehackathonkr<br>Followers</div></div>
+    <div class="stat"><div class="n" data-to="19802327">0</div><div class="l">@thehackathonkr<br>Total Views</div></div>
+    <div class="stat"><div class="n" data-to="620000">0</div><div class="l">Rocketpunch<br>Members</div></div>
+    <div class="stat"><div class="n" data-to="3700000">0</div><div class="l">Rocketpunch<br>YAU</div></div>
+  </div>
+</section>
+
+<!-- ============ WHO'S NEXT ============ -->
+<section class="whonext-screen reveal" id="whonext" data-reveal>
+  <div class="scaled"><div class="scaled-inner">
+    <div class="figpanel" style="background:#121a3a">
+      <img class="wn-bg" src="assets/wn-bg.png" alt="">
+      <img class="wn-logo" src="assets/wn-panlogo.png" alt="PAN">
+
+      <div class="wn-p" style="--wi:0;left:0px;top:274px;width:576px;height:719px;z-index:15">
+        <img src="assets/wn-inki.png" alt="김인기" style="object-position:center bottom">
+      </div>
+      <div class="wn-p" style="--wi:1;left:120.86px;top:342.09px;width:644px;height:660px">
+        <img src="assets/wn-dongin.png" alt="최동인" style="transform:scaleY(-1) rotate(180deg)">
+      </div>
+      <div class="wn-p" style="--wi:2;left:382px;top:252px;width:574px;height:814px">
+        <img src="assets/wn-wonjun.png" alt="한원준" style="object-position:center bottom">
+      </div>
+      <div class="wn-p" style="--wi:3;left:617px;top:284px;width:618px;height:797px">
+        <img src="assets/wn-jangwoo.png" alt="최장우" style="object-position:center bottom">
+      </div>
+      <div class="wn-p" style="--wi:4;left:850.53px;top:300.23px;width:767px;height:767px">
+        <img src="assets/wn-gwanyeop.png" alt="한관엽" style="object-position:center 25%">
+      </div>
+      <div class="wn-p" style="--wi:5;left:1248px;top:333px;width:502px;height:666px;z-index:2">
+        <img src="assets/wn-seungju.png" alt="변승주" style="object-position:center bottom">
+      </div>
+      <div class="wn-p wn-p-next" style="--wi:6;left:1660px;top:333px;width:260px;height:666px;z-index:1">
+        <img src="assets/wn-silhouette.png" alt="" style="object-position:top center">
+      </div>
+
+
+      <div class="wn-nm reveal-wi" style="--wi:0;left:288px;top:740px">김인기</div>
+      <div class="wn-role reveal-wi" style="--wi:0;left:288px;top:800px">Rocketpunch<br>Narrative</div>
+
+      <div class="wn-nm reveal-wi" style="--wi:1;left:443px;top:740px">최동인</div>
+      <div class="wn-role reveal-wi" style="--wi:1;left:443px;top:800px" data-i18n="whonext.p2.role" data-i18n-html="1">흑백개발자<br>THE HACK</div>
+
+      <div class="wn-nm reveal-wi" style="--wi:2;left:669px;top:740px">한원준</div>
+      <div class="wn-role reveal-wi" style="--wi:2;left:669px;top:800px">Bloom<br>Cliwant</div>
+
+      <div class="wn-nm reveal-wi" style="--wi:3;left:926px;top:740px">최장우</div>
+      <div class="wn-role reveal-wi" style="--wi:3;left:926px;top:800px" data-i18n="whonext.p4.role" data-i18n-html="1">2026 수능만점자<br>ATLASchool</div>
+
+      <div class="wn-nm reveal-wi" style="--wi:4;left:1234px;top:740px">한관엽</div>
+      <div class="wn-role reveal-wi" style="--wi:4;left:1234px;top:800px">YC F25<br>Aleph Lab</div>
+
+      <div class="wn-nm reveal-wi" style="--wi:5;left:1499px;top:740px">변승주</div>
+      <div class="wn-role reveal-wi" style="--wi:5;left:1499px;top:800px" data-i18n="whonext.p6.role" data-i18n-html="1">유튜브 대생이<br>구독자 339만</div>
+
+      <div class="wn-next-label reveal-wi" style="--wi:6;left:1790px;top:490px" data-i18n="whonext.next" data-i18n-html="1">WHO'S<br>NEXT?</div>
+
+      <div class="wn-badge"><span data-i18n="whonext.title">대한민국에 없던 판, 함께 키울 사람을 찾습니다</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ============ ROADMAP (= PAN VISION 위치) ============ -->
+<section class="pad reveal" id="roadmap" data-reveal>
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,90px);align-items:start">
+    <h2>
+      <span class="rise-wrap"><span class="rise-in" data-i18n="road.title1">1회성 행사가 아닌,</span></span>
+      <span class="rise-wrap"><span class="rise-in" style="--rd:70ms" data-i18n="road.title2">매년 세계가 찾는</span></span>
+      <span class="rise-wrap"><span class="rise-in" style="--rd:140ms" data-i18n="road.title3">국가급 IP로</span></span>
+    </h2>
+    <div class="fade" style="--fd:120ms">
+      <p class="body" data-i18n="road.body">첫 행사는 비영리로 개최합니다. 이후 CES와 올림픽처럼 특정 기업이 아닌 독립 운영 기구를 세워, 기업·정부·지자체·글로벌 파트너가 함께 키우는 연례 IP로 성장시킵니다. 우리가 만드는 것은 행사가 아니라, 매년 세계가 대한민국을 찾아올 새로운 이유입니다.</p>
+    </div>
+  </div>
+  <div class="tl-wrap" id="railBox">
+    <div class="tl-cards">
+      <div class="tl-card">
+        <div class="tl-y" data-i18n="road.y1">2026 ㅣ 1회 개최</div>
+        <p data-i18n="road.b1" data-i18n-html="1">성수 거리에서 첫 판을 엽니다.<br>국내 빌더·크리에이터·투자자 네트워크의 원형이 만들어집니다.</p>
+      </div>
+      <div class="tl-card">
+        <div class="tl-y" data-i18n="road.y2">2027 ㅣ 상설화</div>
+        <p data-i18n="road.b2" data-i18n-html="1">축제가 끝나도 운영되는 오프라인 거점을 만들고,<br>PAN이 발굴한 팀들의 성장을 연중 추적·지원합니다.</p>
+      </div>
+      <div class="tl-card">
+        <div class="tl-y" data-i18n="road.y3">2029 ㅣ 자본화</div>
+        <p data-i18n="road.b3" data-i18n-html="1">파운딩 파트너가 출자하는 시드 매칭 펀드를 조성해,<br>PAN에서 발굴된 팀에 실질적인 자본이 흐르게 합니다.</p>
+      </div>
+      <div class="tl-card">
+        <div class="tl-y" data-i18n="road.y4">2030~ ㅣ 확장</div>
+        <p data-i18n="road.b4" data-i18n-html="1">도쿄, 싱가포르, 자카르타 등 아시아 주요 도시로 PAN의 이름과 포맷을 확장하며,<br>서울을 그 첫 번째이자 상징적인 본진으로 만듭니다.</p>
+      </div>
+    </div>
+    <div class="tl-line">
+      <span class="tl-dot"></span><span class="tl-dot"></span><span class="tl-dot"></span><span class="tl-dot"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARTNERS ============ -->
+<section class="pad reveal" id="partners" data-reveal>
+  <h2 style="max-width:20ch;font-size:clamp(24px,3.2vw,46px)">
+    <span class="rise-wrap"><span class="rise-in" data-i18n="partners.title1">이정도 규모의 판은,</span></span>
+    <span class="rise-wrap"><span class="rise-in" style="--rd:70ms" data-i18n="partners.title2">한 팀만으로 만들 수 없습니다</span></span>
+  </h2>
+  <div class="two">
+    <div class="fade" style="--fd:0ms">
+      <div class="box">
+        <div class="lab">WE ARE LOOKING FOR</div>
+        <h4 data-i18n="partners.look.h">이런 기업과 사람을 찾습니다</h4>
+        <ul>
+          <li data-i18n="partners.look.li1">AI 기술을 대중에게 자연스럽게 알리고 싶은 스타트업·빅테크</li>
+          <li data-i18n="partners.look.li2">글로벌 진출을 준비 중인 로보틱스·AI 서비스 기업</li>
+          <li data-i18n="partners.look.li3">브랜드 체험을 통해 새로운 시장을 열고 싶은 기업</li>
+          <li data-i18n="partners.look.li4">인재 채용·투자 유치를 원하는 창업팀</li>
+        </ul>
+      </div>
+    </div>
+    <div class="fade" style="--fd:80ms">
+      <div class="box solid">
+        <div class="lab">BENEFITS</div>
+        <h4 data-i18n="partners.ben.h">참여 시 혜택</h4>
+        <ul>
+          <li data-i18n="partners.ben.li1">10만+ 방문객 대상 오픈 부스·체험존 운영</li>
+          <li data-i18n="partners.ben.li2">300~500명 글로벌 파트너 대상 프라이빗 네트워킹 (영어 진행)</li>
+          <li data-i18n="partners.ben.li3">스폰서십·광고 패키지, 공간 파트너, 인터뷰·미디어 콘텐츠 협업</li>
+          <li data-i18n="partners.ben.li4">축제 종료 후에도 이어지는 상설 창업자·크리에이터 네트워크</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="two two-tiers">
+    <div class="fade" style="--fd:160ms">
+      <div class="box box-sm">
+        <div class="lab">Founding Partners</div>
+        <h4 data-i18n="partners.founding.h">파운딩 파트너</h4>
+        <p class="body" data-i18n="partners.founding.body">초기부터 IP의 성장 과정에 참여하며, 창립 파트너로서 지속적인 예우와 함께 향후 독립 운영 기구의 창립 멤버 후보로 우선 검토됩니다.</p>
+      </div>
+    </div>
+    <div class="fade" style="--fd:240ms">
+      <div class="box box-sm">
+        <div class="lab">Partners</div>
+        <h4 data-i18n="partners.partner.h">파트너</h4>
+        <p class="body" data-i18n="partners.partner.body">스폰서십·광고 패키지(Presented by), 공간 파트너, 인터뷰·미디어 콘텐츠 협업 파트너를 환영합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ISLAND ============ -->
+<section class="island pad reveal" id="island" data-reveal>
+  <div>
+    <div class="fade" style="margin-bottom:.6em"><div class="eyebrow" data-i18n="island.eyebrow">경기도 시흥, 거북섬 Geobukseom-dong</div></div>
+    <h2 style="margin:.4em 0 .6em"><span class="rise-wrap"><span class="rise-in" data-i18n="island.title">스타트업 도시를 만듭니다</span></span></h2>
+    <div class="fade" style="--fd:120ms">
+      <p class="body" data-i18n="island.body1" data-i18n-html="1">PAN은 성수의 거리에서 끝나지 않습니다.<br>축제에서 시작된 창업가와 크리에이터의 연결은, 실제 도시로 이어집니다.</p>
+      <p class="body" style="margin-top:1.4em" data-i18n="island.body2" data-i18n-html="1">거북섬은 창업가와 크리에이터가 짧게는 몇 주, 길게는 몇 달간 함께 머물며<br>아이디어를 실제 사업으로 발전시키는 체류형 창업 거점으로 조성됩니다.</p>
+      <ul class="island-feats">
+        <li><b data-i18n="island.feat1.t">레지던시형 주거·오피스</b><span data-i18n="island.feat1.d">창업가와 크리에이터가 머무는 공간</span></li>
+        <li><b data-i18n="island.feat2.t">오픈 데모 공간</b><span data-i18n="island.feat2.d">투자자·기업이 상시 방문해 프로젝트를 발굴</span></li>
+      </ul>
+      <p class="body" style="margin-top:1.4em;color:var(--neon);font-weight:700" data-i18n="island.body3" data-i18n-html="1">축제가 만든 열기를 1회성 이벤트로 소비하지 않고,<br>도시 단위의 지속 가능한 창업 생태계로 전환하고 확장합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUTRO ============ -->
+<footer class="outro">
+  <div class="stars" aria-hidden="true"></div>
+  <div class="cut" role="img" aria-label="PAN">
+    <svg viewBox="0 0 1920 452" fill="none" preserveAspectRatio="none">
+      <path d="M1920 452H0V0H1920V452ZM309.367 32.3848C218.252 32.3855 122.075 31.3029 31.6055 32.5908L31.3818 122.611C69.8734 123.596 112.806 122.89 151.639 122.928L381.676 123.054L457.622 122.958C467.641 122.946 478.827 123.116 488.723 122.984C564.091 121.977 596.406 179.608 542.608 210.343C517.818 224.506 487.235 221.841 455.784 221.856L157.828 221.839C116.769 221.834 72.3055 221.326 31.5195 222.225C31.5554 283.736 32.6426 346.683 31.3916 408.061L194.534 408.123C194.977 375.985 195.09 343.845 194.875 311.705C254.58 313.323 328.813 312.093 389.052 312.039L470.654 311.991C502.481 311.964 528.173 312.464 560.175 308.417C573.452 306.738 585.971 304.44 597.731 301.598L544.257 358.702C535.225 368.336 504.051 399.594 498.492 408.6C556.719 409.295 615.414 408.389 673.631 408.777C730.375 347.968 785.544 282.472 840.23 220.72C858.707 200.003 876.926 179.198 894.881 158.307C901.47 150.714 916.168 135.486 919.642 128.042C929.916 138.714 939.519 149.631 948.426 160.768C998.597 218.198 1049.34 275.436 1100.64 332.479C1121.74 356.193 1142.64 380.275 1163.83 403.98C1165.1 405.401 1167.81 408.241 1170.06 408.391C1173.54 408.622 1178.91 408.751 1185.06 408.822C1185.06 408.847 1185.06 408.872 1185.06 408.896L1195.32 408.891C1198.93 408.899 1202.6 408.895 1206.13 408.885L1340.19 408.816C1341.83 328.286 1340.79 245.175 1340.3 164.494C1366.16 183.073 1395.87 201.499 1423.07 219.479L1549.35 304.186L1639.06 364.641L1668.27 384.437C1709.64 412.817 1717.56 408.968 1775.9 408.896L1866.68 408.796C1870.69 408.775 1870.98 409.232 1873.12 407.941C1874.72 397.973 1873.55 378.736 1873.54 367.938V32.9932C1823.22 33.1553 1768.11 32.406 1718.22 33.2969L1718.31 200.91C1718.36 224.397 1716.95 253.075 1718.48 276.065L1718.11 275.892C1712.31 273.142 1707.59 269.612 1702.69 266.279C1687.91 256.23 1672.75 246.399 1658.01 236.328L1424.11 74.0732C1400.91 57.7095 1372.02 32.8136 1333.85 33.1592C1287.16 33.5819 1236.92 31.9633 1190.51 33.3877L1186.27 33.7393C1183.93 35.877 1185.11 92.9863 1185.1 100.206L1185.06 232.793L1073.11 110.72C1050.22 85.5952 1025.66 57.692 1002.15 33.0693C951.433 32.9299 897.782 32.4605 847.29 33.1709C840.704 38.1164 829.857 50.3353 824.222 56.3516C810.185 71.326 796.314 86.3596 782.609 101.452L732.639 155.831C723.639 100.202 665.848 48.1005 558.691 35.5947C519.57 31.0294 485.943 32.3374 445.842 32.3477L309.367 32.3848Z" fill="#F3FF48"/>
+    </svg>
+  </div>
+  <div class="globe" aria-hidden="true"></div>
+  <div class="foot">
+    <div class="by">Designed by IMBY · @imbykorea</div>
+    <div class="who">
+      <div class="nm">최동인</div>
+      <div><a href="tel:01064950381">010-6495-0381</a></div>
+      <div><a href="mailto:cdiseetheeye@gmail.com">cdiseetheeye@gmail.com</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ 하단 내비게이션 (원래 버전 유지) + 언어 선택 ============ -->
+<div class="dock">
+  <nav id="nav" aria-label="챕터">
+    <a href="#stackWrapper" data-target="stackWrapper">WHY PAN</a>
+    <a href="#zones" data-target="zones">WHAT PAN</a>
+    <a href="#with" data-target="with">WITH PAN</a>
+    <a href="#roadmap" data-target="roadmap">PAN VISION</a>
+    <a href="mailto:cdiseetheeye@gmail.com" data-target="partners" class="cta" data-i18n="nav.partners">파트너 문의</a>
+  </nav>
+  <div id="langbar" role="group" aria-label="Language">
+    <button type="button" class="on" data-lang="ko">KR</button>
+    <button type="button" data-lang="en">EN</button>
+    <button type="button" data-lang="zh">CN</button>
+  </div>
+</div>
+
+<script>
+(function(){
+var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ================= 다국어 (KO/EN/ZH) ================= */
+var i18nEls = [].slice.call(document.querySelectorAll('[data-i18n]'));
+var i18nKo = {};
+i18nEls.forEach(function(el){
+  var key = el.dataset.i18n;
+  i18nKo[key] = el.dataset.i18nHtml === '1' ? el.innerHTML : el.textContent;
+});
+
+var translations = {
+en: {
+  "hud.sub": "The Future, Met in the Street — Korea's First Street AI Festival",
+  "ui.scroll": "SCROLL",
+  "ui.tbd": "*Under discussion",
+  "intro.note": "*Specific dates are subject to change.",
+  "intro.headline": "The World's Future Is Heading to Korea",
+  "intro.bottom": "We will launch Korea's first street AI festival, bringing together a once-scattered future on a single street in Seongsu.\n          <b>Ultimately, we will grow it into an independent IP that founders, creators, and Big Tech from across Asia-Pacific gather for, every year.</b>",
+  "why.street.headline": '<p style="margin:0">The future of 2049</p><p class="fx-swipe-r" style="margin:0;display:inline-block;background:#f3ff48;color:#01244b;letter-spacing:-.32px;padding:0 .05em;box-decoration-break:clone;-webkit-box-decoration-break:clone">converges on a single street</p>',
+  "why.street.body": '<p style="margin:0">AI-composed music fills the street, and AI-made films play on screen. </p><p style="margin:0">Builders freely demo their products, and pop-ups offer an early glimpse of the city of the future.</p><p style="margin:0;font-weight:800;color:#f3ff48">AI\u2019s next wave of mainstream adoption won\u2019t start in a conference hall \u2014 it starts in the street.</p>',
+  "why.korea.title": "AI Is Now a Powerful Culture, Too",
+  "why.korea.body": '<p style="margin:0">There are countries that won\u2019t come when the U.S. hosts,<br>and countries that won\u2019t come when China hosts.</p><p style="margin:0;font-weight:700;color:#f3ff48">But Seoul is different.</p><p style="margin:0">&nbsp;</p><p style="margin:0">Technology and talent from the U.S., China, Japan, Singapore, and Vietnam </p><p style="margin:0">can meet in a single city, on a single street.</p><p style="margin:0">&nbsp;</p><p style="margin:0">Korea is a country that has already connected its culture to the world through music, film, and fashion.</p><p style="margin:0;font-weight:700;color:#f3ff48">A place of connection where technology and culture, creators and audiences, meet on the same street.</p><p style="margin:0;font-weight:700;color:#f3ff48">This is what Korea does best. </p>',
+  "why.2026.body": '<p style="margin:0">The change around AI has already begun.<br>Global Big Tech and AI leaders, including Jensen Huang, are already visiting Korea.</p><p style="margin:0">But this interest is scattered \u2014 company by company, event by event.<br><br></p><p style="margin:0">What\u2019s needed now is to take this scattered interest and energy</p><p style="margin:0;font-weight:700;color:#f3ff48">and consolidate it into one great current that brings the world to Korea, every year.</p>',
+  "why.2026.title": "This Year Is the Turning Point",
+  "why.pan.title": '<p style="margin:0;font-family:\'Lexend Zetta:Regular\',sans-serif;font-weight:400;color:#0c0d0c;font-size:44px">WHY PAN</p><p style="margin:0;line-height:1.25;font-size:58px">From Age 10 to 90</p><p style="margin:0;line-height:1.25;font-size:58px">A Festival for Every Generation</p>',
+  "why.pan.body": '<p style="margin:0;font-weight:700;color:#f3ff48">The era of closed conferences for CEOs only is over.</p><p style="margin:0;font-weight:700;color:#f3ff48">AI information you only get from news and magazines just doesn\u2019t land \u2014 it evaporates.</p><p style="margin:0">&nbsp;</p><p style="margin:0">PAN has boldly erased the dull, one-way format. </p><p style="margin:0">Anyone walking down the street can use, encounter, and feel AI firsthand.</p><p style="margin:0">After the festival ends, every generation will carry the experience of having tried AI themselves \u2014 and the desire to learn more.</p>',
+  "seongsu.line1": "Home to creators,",
+  "seongsu.line2": "Seongsu Street is the stage",
+  "seongsu.body": "It\u2019s the heart of Seoul, where technology and culture, brands and creators, meet at their highest density.<br>\n      Built around three ZONEs along Seongsu\u2019s main street,<br>\n      AI will seep deep into the entire city and become part of it.",
+  "zone1.place": "Blue Elephant Space Seongsu",
+  "zone1.li1": "Participants build live services on-site using AI coding tools, and the process is broadcast on giant signage to everyone passing by.",
+  "zone1.li2": "AI services from Korea and abroad \u2014 launched or still in beta \u2014 meet real users and pitch live to investors and accelerators. Visitors vote to choose the \u201cStreet\u2019s Pick.\u201d",
+  "zone1.li3": "Working developers and founders are on hand to give on-the-spot code reviews and product feedback.",
+  "zone2.place": "Seongsu Art Hall",
+  "zone2.li1": "Short films by AI creators from Korea and abroad screen in a different program each day \u2014 an opening gala, an emerging-creator showcase, and a special exhibition of invited international works.",
+  "zone2.li2": "An awards ceremony with renowned figures and industry judges from Korea and abroad, honoring winners in categories such as AI Cinematic and AI Visual Art.",
+  "zone2.li3": "Director talks and behind-the-scenes sessions let audiences experience exactly how each work was made.",
+  "zone3.place": "Grove1219",
+  "zone3.intro": "A new kind of event where physical AI and humans perform side by side. Step in, compete, and enjoy an AI Olympics unlike any other.",
+  "zone3.li1": "Different AI robots enter the arena each in their own way, kicking off the AI Robot Olympics. Performances and team introductions set the mood of an international sporting event.",
+  "zone3.li2": "AI robots from Korea and abroad gather to compete across a range of events, just like a real Olympics. As they test physical prowess and precise movement, visitors can watch the fierce competition up close.",
+  "zone3.li3": "Physical AI robots of every kind are on display throughout the space. From inside the building to the street outside, experience each nation's flagship robots \u2014 watch them guide, serve, and perform their real functions up close.",
+  "with.title1": "We\u2019ve Already Made It Happen",
+  "with.p1.role": "THE HACK \u00b7 Heukbaek Developers",
+  "with.p1.bio": "Lead organizer of THE Hackathon, a 7-day event joined by roughly 80 of Korea\u2019s top founders. It has grown to 22,000 followers and 19.8 million cumulative views.",
+  "with.p2.bio": "CEO of Rocketpunch, a career platform with over 620,000 members, 200,000+ company profiles, and 3.7 million unique visitors a year \u2014 used by roughly 1 in 7 economically active Koreans.",
+  "with.p3.bio": "Co-host of Bloom (17,000+ participants) and an Anthropic-supported meetup (2,000+ applicants). Backed by Singtel, it has expanded from Seoul to Singapore.",
+  "whonext.title": "A stage Korea has never had \u2014 we\u2019re looking for people to build it with",
+  "whonext.p2.role": "Heukbaek Developers<br>THE HACK",
+  "whonext.p4.role": "2026 Perfect CSAT Scorer<br>ATLASchool",
+  "whonext.p6.role": "YouTube \u2018Daesaengi\u2019<br>3.39M Subscribers",
+  "whonext.next": "WHO\u2019S<br>NEXT?",
+  "road.title1": "Not a one-time event,",
+  "road.title2": "but a national-grade IP",
+  "road.title3": "the world visits, every year",
+  "road.body": "The first edition will be held as a non-profit event. Afterward, like CES or the Olympics, we\u2019ll establish an independent operating body \u2014 not owned by any single company \u2014 and grow it into an annual IP nurtured by corporations, governments, local authorities, and global partners together. What we\u2019re building isn\u2019t an event; it\u2019s a brand-new reason for the world to visit Korea, every single year.",
+  "road.y1": "2026 \u3163 First Edition",
+  "road.b1": "PAN opens its first chapter on the streets of Seongsu.<br>The original network of Korean builders, creators, and investors takes shape.",
+  "road.y2": "2027 \u3163 Becoming Permanent",
+  "road.b2": "We build an offline base that keeps running after the festival ends,<br>tracking and supporting PAN-discovered teams all year round.",
+  "road.y3": "2029 \u3163 Capitalization",
+  "road.b3": "We form a seed-matching fund backed by founding partners,<br>so real capital flows to the teams PAN has discovered.",
+  "road.y4": "2030~ \u3163 Expansion",
+  "road.b4": "We expand the PAN name and format to major Asian cities like Tokyo, Singapore, and Jakarta,<br>with Seoul as its first and symbolic home base.",
+  "partners.title1": "A stage this big",
+  "partners.title2": "can\u2019t be built by one team alone",
+  "partners.look.h": "We\u2019re Looking for Companies and People Like This",
+  "partners.look.li1": "Startups and Big Tech companies that want to introduce AI to the public in a natural way",
+  "partners.look.li2": "Robotics and AI service companies preparing to go global",
+  "partners.look.li3": "Companies looking to open new markets through brand experiences",
+  "partners.look.li4": "Startup teams seeking talent or investment",
+  "partners.ben.h": "Benefits of Participating",
+  "partners.ben.li1": "Operate an open booth or experience zone for 100,000+ visitors",
+  "partners.ben.li2": "Private networking (in English) with 300\u2013500 global partners",
+  "partners.ben.li3": "Sponsorship and advertising packages, space partnerships, interviews and media collaboration",
+  "partners.ben.li4": "A standing founder-and-creator network that continues after the festival",
+  "partners.founding.h": "Founding Partner",
+  "partners.founding.body": "Join the growth of the IP from the very start. As a founding partner, you\u2019ll receive ongoing recognition and priority consideration as a founding-member candidate for the future independent operating body.",
+  "partners.partner.h": "Partner",
+  "partners.partner.body": "We welcome sponsorship and advertising packages (Presented by), space partners, and interview / media content collaboration partners.",
+  "island.eyebrow": "Siheung, Gyeonggi-do \u2014 Geobukseom-dong",
+  "island.title": "We\u2019re Building a Startup City",
+  "island.body1": "PAN doesn\u2019t end on the streets of Seongsu.<br>The connections among founders and creators that begin at the festival extend into an actual city.",
+  "island.body2": "Geobukseom will be developed as a residency-style startup hub,<br>where founders and creators stay together \u2014 from a few weeks to several months \u2014 turning ideas into real businesses.",
+  "island.feat1.t": "Residency-Style Housing & Offices",
+  "island.feat1.d": "Space where founders and creators stay",
+  "island.feat2.t": "Open Demo Space",
+  "island.feat2.d": "Investors and companies visit year-round to discover projects",
+  "island.body3": "Rather than letting the festival\u2019s energy burn out as a one-time event,<br>we convert and expand it into a sustainable, city-scale startup ecosystem.",
+  "nav.partners": "Partner Inquiries"
+},
+zh: {
+  "hud.sub": "街头遇见未来，韩国首个街头人工智能节",
+  "ui.scroll": "滚动浏览",
+  "ui.tbd": "*协商推进中",
+  "intro.note": "*具体日期可能会有变动。",
+  "intro.headline": "世界的未来，正驶向韩国",
+  "intro.bottom": "我们将举办韩国首个街头人工智能节，把原本分散的未来汇聚到城水洞的一条街道上。\n          <b>最终，我们希望将其打造成一个独立IP，让亚太地区的创业者、创作者与科技巨头每年齐聚于此。</b>",
+  "why.street.headline": '<p style="margin:0">2049年的未来</p><p class="fx-swipe-r" style="margin:0;display:inline-block;background:#f3ff48;color:#01244b;letter-spacing:-.32px;padding:0 .05em;box-decoration-break:clone;-webkit-box-decoration-break:clone">汇聚于一条街道</p>',
+  "why.street.body": '<p style="margin:0">AI谱写的音乐在街头回荡，AI制作的电影在大屏幕上放映。</p><p style="margin:0">建造者们自由展示自己的产品，快闪空间让人们提前看到未来城市的模样。</p><p style="margin:0;font-weight:800;color:#f3ff48">AI的下一次大众化，不会始于会议厅，而是始于街头。</p>',
+  "why.korea.title": "如今，AI 也是一种强大的文化",
+  "why.korea.body": '<p style="margin:0">有些国家，美国主办时不会来，<br>有些国家，中国主办时不会来。</p><p style="margin:0;font-weight:700;color:#f3ff48">但首尔不同。</p><p style="margin:0">&nbsp;</p><p style="margin:0">美国、中国、日本、新加坡、越南的技术与人才，</p><p style="margin:0">可以在同一座城市、同一条街道相遇。</p><p style="margin:0">&nbsp;</p><p style="margin:0">韩国早已通过音乐、电影、时尚，将本国文化连接到世界。</p><p style="margin:0;font-weight:700;color:#f3ff48">技术与文化、创作者与观众在同一条街道相遇的连接场域。</p><p style="margin:0;font-weight:700;color:#f3ff48">这正是韩国最擅长的事。</p>',
+  "why.2026.body": '<p style="margin:0">围绕AI的变化早已开始。<br>包括黄仁勋在内的全球科技巨头与AI领军人物，已在陆续到访韩国。</p><p style="margin:0">但这种关注目前仍按企业、按活动零散分布。<br><br></p><p style="margin:0">现在需要做的，是把这些分散的关注与能量</p><p style="margin:0;font-weight:700;color:#f3ff48">汇聚成一股强大的潮流，让世界每年都主动造访大韩民国。</p>',
+  "why.2026.title": "今年正是转折点",
+  "why.pan.title": '<p style="margin:0;font-family:\'Lexend Zetta:Regular\',sans-serif;font-weight:400;color:#0c0d0c;font-size:44px">WHY PAN</p><p style="margin:0;line-height:1.25;font-size:58px">从10岁到90岁</p><p style="margin:0;line-height:1.25;font-size:58px">打造全民世代的节日</p>',
+  "why.pan.body": '<p style="margin:0;font-weight:700;color:#f3ff48">只属于CEO们的封闭式会议时代已经结束。</p><p style="margin:0;font-weight:700;color:#f3ff48">只靠新闻和杂志接触到的AI信息，往往难以真正打动人心，转瞬即逝。</p><p style="margin:0">&nbsp;</p><p style="margin:0">PAN大胆抛弃了枯燥、单向的形式。</p><p style="margin:0">路过街头的每一个人，都能亲手使用、亲身接触、亲自感受AI。</p><p style="margin:0">节日结束后，每一代人心中都会留下亲自体验过AI的记忆，以及想要继续学习的心情。</p>',
+  "seongsu.line1": "创作者的故乡，",
+  "seongsu.line2": "城水街区，就是舞台",
+  "seongsu.body": "这里是首尔的心脏地带，技术与文化、品牌与创作者在此高密度交汇。<br>\n      以城水主街上诞生的三大ZONE为基础，<br>\n      AI将深深渗透进整座城市，与之融为一体。",
+  "zone1.place": "蓝象空间 城水",
+  "zone1.li1": "参与者在现场使用AI编程工具实时构建产品，整个过程通过巨型显示屏向路过的每一个人实时直播。",
+  "zone1.li2": "已上线或处于测试阶段的国内外AI服务将在此接触真实用户，并向投资人和加速器进行现场路演。观众投票选出\u201c街头之选\u201d。",
+  "zone1.li3": "现役开发者与创业者常驻现场，提供即时代码审查与产品反馈。",
+  "zone2.place": "城水艺术馆",
+  "zone2.li1": "国内外AI创作者的短片每天以不同单元放映：开幕盛典、新锐创作者展映、海外特邀作品特别展。",
+  "zone2.li2": "由国内外知名人士与业界评审团参与的颁奖典礼，将揭晓AI影像、AI视觉艺术等各单元获奖作品。",
+  "zone2.li3": "通过导演对谈与制作过程公开环节，让观众也能体验作品\u201c是如何被创作出来的\u201d。",
+  "zone3.place": "Grove1219",
+  "zone3.intro": "一场由物理AI与人类共同演绎的全新活动。亲自参与、竞技、享受一场前所未有的AI奥运会。",
+  "zone3.li1": "各具特色的AI机器人以各自的方式登场，宣告AI机器人奥运会正式开始。通过表演与团队介绍，营造出国际体育赛事般的氛围。",
+  "zone3.li2": "国内外AI机器人齐聚一堂，如同真正的奥运会一般在多个项目中展开竞技。它们比拼身体能力与精密动作，观众可在赛场近处见证AI机器人之间激烈的胜负角逐。",
+  "zone3.li3": "各种类型的物理AI机器人在同一空间中悉数登场。从楼内到街头，体验各国的代表性机器人——近距离观察它们完成引导、服务、表演等真实运作的模样。",
+  "with.title1": "我们已经做到了",
+  "with.p1.role": "THE HACK \u00b7 黑白开发者",
+  "with.p1.bio": "THE黑客松的总负责人，该活动为期7天，吸引了约80位韩国顶尖创业者参与，积累了2.2万粉丝、累计1,980万次浏览。",
+  "with.p2.bio": "Rocketpunch的CEO，该职业平台拥有超过62万名会员、逾20万家企业档案，年独立访客达370万人次——韩国每7名经济活动人口中就有1人使用过该平台。",
+  "with.p3.bio": "Bloom活动的联合主办方（参与人数超17,000人），同时也是Anthropic支持的聚会活动联合主办方（申请人数超2,000人）。在Singtel的支持下，已从首尔扩展至新加坡。",
+  "whonext.title": "韩国从未有过的舞台，我们正在寻找共同打造它的人",
+  "whonext.p2.role": "黑白开发者<br>THE HACK",
+  "whonext.p4.role": "2026年韩国高考满分得主<br>ATLASchool",
+  "whonext.p6.role": "YouTube频道\u300c大生이\u300d<br>339万订阅者",
+  "whonext.next": "谁是<br>下一位？",
+  "road.title1": "不是一次性的活动，",
+  "road.title2": "而是让世界",
+  "road.title3": "每年到访的国家级IP",
+  "road.body": "首届活动将以非营利形式举办。此后，我们将效仿CES和奥运会的模式，成立一个独立于任何单一企业的运营机构，将其打造成由企业、政府、地方政府与全球合作伙伴共同培育的年度IP。我们打造的不是一场活动，而是一个让世界每年都愿意造访大韩民国的全新理由。",
+  "road.y1": "2026 \u3163 首届举办",
+  "road.b1": "在城水街头拉开首场帷幕。<br>国内建造者、创作者与投资人的原型网络就此形成。",
+  "road.y2": "2027 \u3163 常设化",
+  "road.b2": "打造节日结束后依然持续运营的线下据点，<br>全年追踪并支持PAN所发掘团队的成长。",
+  "road.y3": "2029 \u3163 资本化",
+  "road.b3": "设立由创始合作伙伴出资的种子配对基金，<br>让实际资本流向PAN所发掘的团队。",
+  "road.y4": "2030年~ \u3163 扩张",
+  "road.b4": "将PAN的名称与形式扩展至东京、新加坡、雅加达等亚洲主要城市，<br>并让首尔成为其首个、也是最具象征意义的大本营。",
+  "partners.title1": "这样规模的舞台，",
+  "partners.title2": "仅凭一个团队无法实现",
+  "partners.look.h": "我们在寻找这样的企业与伙伴",
+  "partners.look.li1": "希望以自然的方式向大众普及AI技术的初创企业与科技巨头",
+  "partners.look.li2": "正在筹备进军全球市场的机器人与AI服务企业",
+  "partners.look.li3": "希望通过品牌体验开拓新市场的企业",
+  "partners.look.li4": "希望招募人才或吸引投资的创业团队",
+  "partners.ben.h": "参与权益",
+  "partners.ben.li1": "面向10万+访客运营开放展位与体验区",
+  "partners.ben.li2": "面向300\u2013500名全球合作伙伴的私享社交活动（英语进行）",
+  "partners.ben.li3": "赞助与广告套餐、空间合作、采访与媒体内容合作",
+  "partners.ben.li4": "节日结束后依然持续运作的常设创业者与创作者网络",
+  "partners.founding.h": "创始合作伙伴",
+  "partners.founding.body": "从初期便参与IP的成长过程。作为创始合作伙伴，您将持续获得相应礼遇，并优先被列为未来独立运营机构创始成员的候选对象。",
+  "partners.partner.h": "合作伙伴",
+  "partners.partner.body": "欢迎赞助与广告套餐（Presented by）、空间合作伙伴，以及采访与媒体内容合作伙伴。",
+  "island.eyebrow": "京畿道始兴市 龟岛洞 Geobukseom-dong",
+  "island.title": "我们正在打造一座创业之城",
+  "island.body1": "PAN不会止步于城水街头。<br>从节日中建立起的创业者与创作者之间的联系，将延伸至真实的城市之中。",
+  "island.body2": "龟岛将被打造成一个驻留型创业基地，<br>创业者与创作者将在此共同停留数周至数月，将创意发展为真正的事业。",
+  "island.feat1.t": "驻留型住宿与办公空间",
+  "island.feat1.d": "创业者与创作者的居留空间",
+  "island.feat2.t": "开放式演示空间",
+  "island.feat2.d": "投资人与企业常态化到访，发掘优质项目",
+  "island.body3": "我们不会让节日所激发的热度仅作为一次性事件消耗掉，<br>而是将其转化并扩展为可持续的城市级创业生态系统。",
+  "nav.partners": "合作咨询"
+}
+};
+
+var metaTitles = { ko:"2026 PAN KOREA", en:"2026 PAN KOREA", zh:"2026 PAN KOREA" };
+var metaDescs = {
+  ko:"올 겨울, 새로운 판이 성수에 벌어집니다.",
+  en:"This winter, a brand-new stage opens in Seongsu, Seoul.",
+  zh:"今年冬天，一个全新的舞台将在首尔城水拉开帷幕。"
+};
+function setLang(lang){
+  document.documentElement.lang = lang;
+  i18nEls.forEach(function(el){
+    var key = el.dataset.i18n;
+    var val = (lang === 'ko') ? i18nKo[key] : ((translations[lang] && translations[lang][key] != null) ? translations[lang][key] : i18nKo[key]);
+    if(el.dataset.i18nHtml === '1') el.innerHTML = val; else el.textContent = val;
+  });
+  document.title = metaTitles[lang] || metaTitles.ko;
+  var metaDesc = document.querySelector('meta[name="description"]');
+  if(metaDesc) metaDesc.setAttribute('content', metaDescs[lang] || metaDescs.ko);
+  document.querySelectorAll('#langbar button[data-lang]').forEach(function(b){ b.classList.toggle('on', b.dataset.lang === lang); });
+  try{ localStorage.setItem('pan-lang', lang); }catch(e){}
+}
+document.querySelectorAll('#langbar button[data-lang]').forEach(function(b){
+  b.addEventListener('click', function(){ setLang(b.dataset.lang); });
+});
+(function initLang(){
+  var saved = null;
+  try{ saved = localStorage.getItem('pan-lang'); }catch(e){}
+  if(saved && (saved === 'en' || saved === 'zh' || saved === 'ko')) setLang(saved);
+})();
+
+
+/* ---------- ScaledDesign: 1920x1080 프레임을 컨테이너에 맞춰 스케일 ---------- */
+function applyScale(el){
+  var inner = el.querySelector('.scaled-inner');
+  if(!inner) return;
+  var r = el.getBoundingClientRect();
+  var scale = Math.min(r.width/1920, r.height/1080);
+  inner.style.transform = 'translate(-50%,-50%) scale(' + scale + ')';
+}
+var scaledEls = [].slice.call(document.querySelectorAll('.scaled'));
+scaledEls.forEach(applyScale);
+if(window.ResizeObserver){
+  scaledEls.forEach(function(el){
+    new ResizeObserver(function(){ applyScale(el); }).observe(el);
+  });
+} else {
+  addEventListener('resize', function(){ scaledEls.forEach(applyScale); });
+}
+
+/* ---------- Rise/Fade reveal (IntersectionObserver 0.2 / 0.3 / 0.4) ---------- */
+var io = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
+}, { threshold: .25 });
+document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+/* ---------- 숫자 카운터 ---------- */
+var nio = new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(!e.isIntersecting) return;
+    nio.unobserve(e.target);
+    var el = e.target, to = +el.dataset.to, t0 = performance.now(), dur = 1600;
+    if(reduce){ el.textContent = to.toLocaleString('en-US'); return; }
+    (function tick(t){
+      var k = Math.min(1,(t-t0)/dur), ease = 1-Math.pow(1-k,3);
+      el.textContent = Math.round(to*ease).toLocaleString('en-US');
+      if(k<1) requestAnimationFrame(tick);
+    })(t0);
+  });
+}, { threshold: .6 });
+document.querySelectorAll('.stat .n').forEach(function(el){ nio.observe(el); });
+
+/* ---------- 타임라인 항목 순차 등장 ---------- */
+var rio = new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); } });
+}, { threshold: .3 });
+var railBox = document.getElementById('railBox');
+if(railBox) rio.observe(railBox);
+
+/* ---------- WHY STACK: 스크롤 진행률로 4패널 크로스페이드 ---------- */
+var stackWrapper = document.getElementById('stackWrapper');
+var panels = [].slice.call(document.querySelectorAll('.panel'));
+var dots = [].slice.call(document.querySelectorAll('.panel-dot'));
+var mounted = new Set([0]);
+var activePanel = 0;
+
+function setActivePanel(p){
+  if(p === activePanel) return;
+  activePanel = p;
+  mounted.add(p);
+  panels.forEach(function(panel, i){
+    var isActive = i === p, isPast = i < p;
+    panel.classList.toggle('active', isActive);
+    panel.classList.toggle('past', isPast && !isActive);
+  });
+  dots.forEach(function(d,i){ d.classList.toggle('active', i===p); });
+}
+
+/* ---------- 히어로 스크롤 패럴랙스 + PAN 로고 등장 ---------- */
+var heroPan = document.getElementById('heroPan');
+var heroGlobe = document.getElementById('heroGlobe');
+setTimeout(function(){
+  if(heroPan){ heroPan.style.opacity = '1'; heroPan.style.transform = 'translateY(0)'; }
+}, 120);
+
+var barsEls = [].slice.call(document.querySelectorAll('.progress i'));
+var chapterEls = {
+  why:   document.getElementById('stackWrapper'),
+  what:  document.getElementById('zones'),
+  with:  document.getElementById('with'),
+  roadmap: document.getElementById('roadmap'),
+  partners: document.getElementById('partners')
+};
+var chapterRanges = [
+  { top: chapterEls.why.offsetTop, bot: chapterEls.why.offsetTop + chapterEls.why.offsetHeight },
+  { top: chapterEls.what.offsetTop, bot: chapterEls.what.offsetTop + chapterEls.what.offsetHeight },
+  { top: chapterEls.with.offsetTop, bot: chapterEls.with.offsetTop + chapterEls.with.offsetHeight },
+  { top: chapterEls.roadmap.offsetTop, bot: chapterEls.partners.offsetTop + chapterEls.partners.offsetHeight }
+];
+var zoneSection = document.getElementById('zones');
+var zoneTrack = document.getElementById('zoneTrack');
+var zoneTargetX = 0, zoneCurrentX = 0;
+
+var ticking = false;
+function frame(){
+  var y = window.scrollY, vh = window.innerHeight;
+
+  /* hero */
+  if(y < vh){
+    var p = Math.min(1, y/vh);
+    if(heroPan){
+      heroPan.style.opacity = String(Math.max(0, 1 - p*2.4));
+      heroPan.style.transform = 'translateY(' + (-p*64) + 'px)';
+    }
+    if(heroGlobe) heroGlobe.style.transform = 'scale(' + (1+p*0.44) + ') translateZ(0)';
+  }
+
+  /* 상단 진행바: WHY / WHAT / WITH / VISION 4구간, 각 구간 실제 스크롤 범위 기준 */
+  chapterRanges.forEach(function(r, i){
+    var span = Math.max(1, r.bot - r.top);
+    var prog = (y - r.top) / span;
+    barsEls[i].style.setProperty('--p', Math.max(0, Math.min(1, prog)).toFixed(4));
+  });
+
+  /* WHY stack progress */
+  if(stackWrapper){
+    var r = stackWrapper.getBoundingClientRect();
+    var total = stackWrapper.offsetHeight - vh;
+    if(total > 0){
+      var progress = Math.max(0, Math.min(1, -r.top/total));
+      var panelIdx = Math.min(panels.length-1, Math.floor(progress*panels.length));
+      setActivePanel(panelIdx);
+    }
+  }
+
+  /* zones horizontal pin: 목표값만 갱신 (실제 이동은 별도 rAF 루프에서 부드럽게) */
+  if(zoneSection && zoneTrack){
+    var zr = zoneSection.getBoundingClientRect();
+    var ztotal = zoneSection.offsetHeight - vh;
+    var zprog = ztotal>0 ? Math.max(0, Math.min(1, -zr.top/ztotal)) : 0;
+    var dist = Math.max(0, zoneTrack.scrollWidth - window.innerWidth + 40);
+    zoneTargetX = -zprog*dist;
+  }
+
+  /* 하단 내비 활성 표시 */
+  var navLinks = navLinksCache;
+  var active = navTargets[0];
+  navTargetsEls.forEach(function(el, i){
+    if(!el) return;
+    var rr = el.getBoundingClientRect();
+    if(rr.top < vh*0.5) active = navTargets[i];
+  });
+  navLinks.forEach(function(a){ a.classList.toggle('on', a.dataset.target === active); });
+
+  ticking = false;
+}
+function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(frame); } }
+
+var navTargets = ['stackWrapper','zones','with','roadmap','partners'];
+var navTargetsEls = navTargets.map(function(id){ return document.getElementById(id); });
+var navLinksCache = [].slice.call(document.querySelectorAll('#nav a'));
+
+window.addEventListener('scroll', onScroll, { passive: true });
+window.addEventListener('resize', onScroll);
+frame();
+
+/* ZONE 가로 트랙: 매 프레임 부드럽게 목표 위치로 보간(뻑뻑함 완화) */
+(function zoneEase(){
+  if(zoneTrack){
+    var k = reduce ? 1 : 0.14;
+    zoneCurrentX += (zoneTargetX - zoneCurrentX) * k;
+    if(Math.abs(zoneTargetX - zoneCurrentX) < 0.05) zoneCurrentX = zoneTargetX;
+    zoneTrack.style.transform = 'translate3d(' + zoneCurrentX.toFixed(2) + 'px,0,0)';
+  }
+  requestAnimationFrame(zoneEase);
+})();
+})();
+</script>
+</body>
+</html>
